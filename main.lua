@@ -16,22 +16,11 @@ end
 
 function love.draw()
     love.graphics.print(love.graphics.getWidth() .. "x" .. love.graphics.getHeight(), monogram, 10, 10)
-    local grid = false
-    for i = 1, 9, 1 do
-        -- what the actual fuck
-        if i % 2 >= 1 then
-            love.graphics.rectangle("fill", board.x + i * 18, board.y, block.w, block.h)
-        else
-            love.graphics.rectangle("line", board.x + i * 18, board.y, block.w, block.h)
-        end
+    for i = 0, 10, 1 do
+        love.graphics.line(board.l1x + i * 18, board.l1y, board.l2x + i * 18, board.l2y)
     end
-    
-    for i = 0, 19, 1 do
-        -- what the actual fuck
-        if i % 2 >= 1 then
-            love.graphics.rectangle("fill", board.x, board.y + i * 18, block.w, block.h)
-        else
-            love.graphics.rectangle("line", board.x, board.y + i * 18, block.w, block.h)
-        end
+
+    for i = 0, 20, 1 do
+        love.graphics.line(board.l3x, board.l3y + i * 18, board.l4x, board.l4y + i * 18)
     end
 end
