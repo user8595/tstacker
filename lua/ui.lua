@@ -52,7 +52,11 @@ end
 
 function keyOverlay()
     if keybinds.hold == "space" then
-        keybinds.keyY = 438
+        keybinds.keyX = love.graphics.getWidth() - 85
+        keybinds.keyY = love.graphics.getHeight() - 44
+    else
+        keybinds.keyX = love.graphics.getWidth() - 102
+        keybinds.keyY = love.graphics.getHeight() - 30
     end
 
     love.graphics.setColor(keybinds.colour)

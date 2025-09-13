@@ -1,3 +1,5 @@
+require("lua.defaults")
+
 function debugToggle()
     if isDebug == true then
         debugUI()

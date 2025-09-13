@@ -105,7 +105,7 @@ keybinds = {
     -- hold = "space",
 
     -- x-axis base position
-    keyX = love.graphics.getWidth() - 85,
+    keyX = love.graphics.getWidth() - 102,
     keyY = love.graphics.getHeight() - 30,
 
     -- key colour
