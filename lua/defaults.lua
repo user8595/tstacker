@@ -87,22 +87,22 @@ block = {
 }
 
 keybinds = {
-    -- up = "up",
-    -- down = "down",
-    -- left = "left",
-    -- right = "right",
-    -- cc = "z",
-    -- c = "x",
-    -- hold = "c",
+    up = "up",
+    down = "down",
+    left = "left",
+    right = "right",
+    cc = "z",
+    c = "x",
+    hold = "c",
     
     -- keybinds
-    up = "w",
-    down = "s",
-    left = "a",
-    right = "d",
-    cc = "k",
-    c = "l",
-    hold = "space",
+    -- up = "w",
+    -- down = "s",
+    -- left = "a",
+    -- right = "d",
+    -- cc = "k",
+    -- c = "l",
+    -- hold = "space",
 
     -- x-axis base position
     keyX = love.graphics.getWidth() - 85,
