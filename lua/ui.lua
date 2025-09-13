@@ -1,4 +1,6 @@
-require("lua.defaults")
+function title()
+    love.graphics.print("stacker", monogramL, love.graphics.getWidth(), love.graphics.getHeight())
+end
 
 function gameUI()
     -- board background
@@ -28,6 +30,8 @@ function gameUI()
     love.graphics.line(board.l3x, board.l3y + 20 * 18, board.l4x, board.l4y + 20 * 18)
 
     -- next queue
+    love.graphics.setColor(board.bg)
+    love.graphics.rectangle("fill", board.nx, board.ny, board.nw, board.nh)
     love.graphics.setColor(board.queue)
     love.graphics.rectangle("line", board.nx, board.ny, board.nw, board.nh)
 
@@ -36,8 +40,10 @@ function gameUI()
     love.graphics.rectangle("fill", board.n1x, board.n1y, board.n1w, board.n1h)
     love.graphics.setColor(board.text)
     love.graphics.print("NEXT", monogram, board.n1x + 7, board.n1y - 1)
-        
+    
     -- hold queue
+    love.graphics.setColor(board.bg)
+    love.graphics.rectangle("fill", board.hx, board.hy, board.hw, board.hh)
     love.graphics.setColor(board.queue)
     love.graphics.rectangle("line", board.hx, board.hy, board.hw, board.hh)
     
@@ -48,6 +54,38 @@ function gameUI()
     love.graphics.rectangle("fill", board.h1x, board.h1y, board.h1w, board.h1h)
     love.graphics.setColor(board.text)
     love.graphics.print("HOLD", monogram, board.h1x + 7, board.h1y - 1)
+end
+
+function lines40()
+    -- lines text
+    love.graphics.setColor(board.border)
+    love.graphics.print("Lines", smallText, board.nx, board.ny + 278)
+    love.graphics.setColor(board.text)
+    love.graphics.print(stats.lines, monogramL, board.nx, board.ny + 285)
+end
+
+function lines()
+    -- lines text
+    love.graphics.setColor(board.border)
+    love.graphics.print("Lines", smallText, board.nx, board.ny + 278)
+    love.graphics.setColor(board.text)
+    love.graphics.print(stats.lines, monogramL, board.nx, board.ny + 285)
+end
+
+function score()
+    -- score text
+    love.graphics.setColor(board.border)
+    love.graphics.print("Score", smallText, board.nx, board.ny + 278)
+    love.graphics.setColor(board.text)
+    love.graphics.print(stats.score, monogramL, board.nx, board.ny + 285)
+end
+
+function timer()
+    -- timer text
+    love.graphics.setColor(board.border)
+    love.graphics.print("Time", smallText, board.nx, board.ny + 310)
+    love.graphics.setColor(board.text)
+    love.graphics.print(minString .. ":" .. secString, monogramL, board.nx, board.ny + 317)
 end
 
 function keyOverlay()
@@ -117,9 +155,30 @@ function keyOverlay()
     end
 end
 
-function debugUI()
+-- debug menu function
+function debugUI()    
+    local condOverlay = ""
+    local condOverlay1 = ""
+    local condY = 70
+
+    if isOverlay == true then
+        condOverlay = "isOverlay"
+    else
+    end
+    if isTimer == true then
+        condOverlay1 = "isTimer"
+        -- moves isTimer text to top if isOverlay is false
+        if isOverlay == false then
+            condY = condY - 15
+        end
+    else
+    end
+
     love.graphics.setColor(1, 1, 1)
     love.graphics.print(love.timer.getFPS() .. " FPS", monogram, 10, 10)
     love.graphics.print(love.graphics.getWidth() .. "x" .. love.graphics.getHeight(), monogram, 10, 25)
-    love.graphics.print(love.timer.getFPS() .. " FPS", monogram, 10, 10)
+    love.graphics.print(state, monogram, 10, 40)
+    love.graphics.print(mode, monogram, 10, 55)
+    love.graphics.print(condOverlay, monogram, 10, condY)
+    love.graphics.print(condOverlay1, monogram, 10, condY + 15)
 end

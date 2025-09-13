@@ -1,6 +1,8 @@
 -- fonts
 function fonts()
     monogram = love.graphics.setNewFont("/assets/monogram.ttf", 22)
+    monogramL = love.graphics.setNewFont("/assets/monogram.ttf", 26)
+    smallText = love.graphics.setNewFont("/assets/Picopixel.ttf", 12)
 end
 
 -- overall board position
@@ -31,8 +33,8 @@ board = {
     nx = love.graphics.getWidth() / 2 + 120 + boardPosX,
     ny = love.graphics.getHeight() / 2 - 155 + boardPosY,
     nw = 80,
-    nh = 50 * nextCount,
-    
+    nh = 45 * nextCount,
+
     -- next queue text frame
     n1x = love.graphics.getWidth() / 2 + 120 + boardPosX,
     n1y = love.graphics.getHeight() / 2 - 173 + boardPosY,
@@ -43,8 +45,8 @@ board = {
     hx = love.graphics.getWidth() / 2 - 188 + boardPosX,
     hy = love.graphics.getHeight() / 2 - 155 + boardPosY,
     hw = 80,
-    hh = 50,
-    
+    hh = 45,
+
     -- hold queue text frame
     h1x = love.graphics.getWidth() / 2 - 188 + boardPosX,
     h1y = love.graphics.getHeight() / 2 - 173 + boardPosY,
@@ -63,7 +65,7 @@ board = {
     grid = {
         0.07, 0.07, 0.07
     },
-    
+
     border = {
         0.3, 0.3, 0.3
     },
@@ -94,7 +96,7 @@ keybinds = {
     cc = "z",
     c = "x",
     hold = "c",
-    
+
     -- keybinds
     -- up = "w",
     -- down = "s",
@@ -114,5 +116,17 @@ keybinds = {
     }
 }
 
+-- stats
+stats = {
+    lines = 0,
+    score = 0,
+}
+
+-- game state
+state = "title" -- "title", "game"
+mode = "none"   -- "40", "marathon"
+
+-- booleans
+isTimer = false
 isOverlay = false
 isDebug = false

@@ -24,14 +24,38 @@ function love.keypressed(key, isrepeat)
     elseif key == "f8" and isOverlay == true then
         isOverlay = false
     end
+
+    -- for testing purposes
+    if key == "f6" and isTimer == false then
+        isTimer = true
+    elseif key == "f6" and isTimer == true then
+        isTimer = false
+    end
+
+    if key == "f7" and mode == "none" then
+        mode = "marathon"
+    elseif key == "f7" and mode == "marathon" then
+        mode = "40"
+    elseif key == "f7" and mode == "40" then
+        mode = "none"
+    -- loops
+    end
 end
 
 function love.update(dt)
-    
+    gameTime(dt)
 end
 
 function love.draw()
     gameUI()
-    overlayToggle()
+    if mode == "none" then
+    elseif mode == "40" then
+        timer()
+        lines40()
+    elseif mode == "marathon" then
+        timer()
+        lines()
+        score()
+    end
     debugToggle()
 end
