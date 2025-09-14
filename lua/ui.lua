@@ -1,5 +1,40 @@
+local cron = require("lib.cron")
+
+function titleBlink()
+    function tb()
+        titleText = {1, 1, 1, 0}
+    end
+    function tbD()
+        titleText = {1, 1, 1, 1}
+    end
+    b = cron.every(1, tb)
+    bf = cron.every(2, tbD)
+end
+
 function title()
-    love.graphics.print("stacker", monogramL, love.graphics.getWidth(), love.graphics.getHeight())
+    love.graphics.print("TStacker", monogramL, love.graphics.getWidth() / 2 - 28, love.graphics.getHeight() / 2 - 120)
+    love.graphics.print({titleText, "Press Enter"}, monogram, love.graphics.getWidth() / 2 - 36, love.graphics.getHeight() / 2 + 100)
+    love.graphics.print({{0.5, 0.5, 0.5}, "incomplete"}, monogram, 10, love.graphics.getHeight() - 27)
+end
+
+function menu()
+    love.graphics.setColor(uiText)
+    love.graphics.printf("Play", button, board.l1x, love.graphics.getHeight() / 2 - 55, board.w, "center")
+    love.graphics.setColor(uiText)
+    love.graphics.printf("Options", button, board.l1x, love.graphics.getHeight() / 2 - 25, board.w, "center")
+    love.graphics.setColor(uiText)
+    love.graphics.printf("About", button, board.l1x, love.graphics.getHeight() / 2 + 5, board.w, "center")
+    love.graphics.setColor(uiText)
+    love.graphics.printf("Exit", button, board.l1x, love.graphics.getHeight() / 2 + 35, board.w, "center")
+end
+
+function menuSelect()
+    love.graphics.setColor(board.border)
+    love.graphics.rectangle("fill", board.l1x, love.graphics.getHeight() / 2 - menuSelectY, board.w, 27)
+end
+
+function modes()
+    
 end
 
 function gameUI()
@@ -7,17 +42,7 @@ function gameUI()
     love.graphics.setColor(board.bg)
     love.graphics.rectangle("fill", board.l1x, board.l1y, board.w, board.h)
 
-    -- board grid
-    love.graphics.setColor(board.grid)
-    -- vertical lines
-    for i = 1, 9, 1 do
-        love.graphics.line(board.l1x + i * 18, board.l1y, board.l2x + i * 18, board.l2y)
-    end
-    -- horizontal lines
-    for i = 1, 19, 1 do
-        love.graphics.line(board.l3x, board.l3y + i * 18, board.l4x, board.l4y + i * 18)
-    end
-
+    
     -- outer borders
     love.graphics.setColor(board.border)
     love.graphics.line(board.l1x, board.l1y, board.l2x, board.l2y)
@@ -28,7 +53,7 @@ function gameUI()
     love.graphics.line(board.l3x, board.l3y, board.l4x, board.l4y)
     love.graphics.setColor(board.border)
     love.graphics.line(board.l3x, board.l3y + 20 * 18, board.l4x, board.l4y + 20 * 18)
-
+    
     -- next queue
     love.graphics.setColor(board.bg)
     love.graphics.rectangle("fill", board.nx, board.ny, board.nw, board.nh)
@@ -54,6 +79,20 @@ function gameUI()
     love.graphics.rectangle("fill", board.h1x, board.h1y, board.h1w, board.h1h)
     love.graphics.setColor(board.text)
     love.graphics.print("HOLD", monogram, board.h1x + 7, board.h1y - 1)
+end
+
+function grid() 
+    -- board grid
+    love.graphics.setColor(board.grid)
+    -- vertical lines
+    for i = 1, 9, 1 do
+        love.graphics.line(board.l1x + i * 18, board.l1y, board.l2x + i * 18, board.l2y)
+    end
+    love.graphics.setColor(board.grid)
+    -- horizontal lines
+    for i = 1, 19, 1 do
+        love.graphics.line(board.l3x, board.l3y + i * 18, board.l4x, board.l4y + i * 18)
+    end
 end
 
 function lines40()
@@ -159,7 +198,8 @@ end
 function debugUI()    
     local condOverlay = ""
     local condOverlay1 = ""
-    local condY = 70
+    local popup = "none"
+    local condY = 85
 
     if isOverlay == true then
         condOverlay = "isOverlay"
@@ -174,11 +214,20 @@ function debugUI()
     else
     end
 
+    if isAbout == true then
+        popup = "isAbout"
+    elseif isOptions == true then
+        popup = "isOptions"
+    else
+        popup = "none"
+    end
+
     love.graphics.setColor(1, 1, 1)
     love.graphics.print(love.timer.getFPS() .. " FPS", monogram, 10, 10)
     love.graphics.print(love.graphics.getWidth() .. "x" .. love.graphics.getHeight(), monogram, 10, 25)
     love.graphics.print(state, monogram, 10, 40)
     love.graphics.print(mode, monogram, 10, 55)
+    love.graphics.print(popup, monogram, 10, 70)
     love.graphics.print(condOverlay, monogram, 10, condY)
     love.graphics.print(condOverlay1, monogram, 10, condY + 15)
 end

@@ -1,61 +1,48 @@
 require("lua.defaults")
+require("lua.menu")
 require("lua.game")
 require("lua.ui")
 
+if arg[2] == "debug" then
+    require("lldebugger").start()
+end
+
 function love.load()
-    love.graphics.setDefaultFilter("nearest", "nearest")
-    love.graphics.setBackgroundColor(bgCol)
+    defaults()
     fonts()
+    titleBlink()
 end
 
 function love.keypressed(key, isrepeat)
-    if key == "escape" then
-        love.event.quit(0)
-    end
-    
-    if key == "f4" and isDebug == false then
-        isDebug = true
-    elseif key == "f4" and isDebug == true then
-        isDebug = false
-    end
-    
-    if key == "f8" and isOverlay == false then
-        isOverlay = true
-    elseif key == "f8" and isOverlay == true then
-        isOverlay = false
-    end
-
-    -- for testing purposes
-    if key == "f6" and isTimer == false then
-        isTimer = true
-    elseif key == "f6" and isTimer == true then
-        isTimer = false
-    end
-
-    if key == "f7" and mode == "none" then
-        mode = "marathon"
-    elseif key == "f7" and mode == "marathon" then
-        mode = "40"
-    elseif key == "f7" and mode == "40" then
-        mode = "none"
-    -- loops
-    end
+    inputMenu(key, isrepeat)
+    tSMenu(key, isrepeat)
+    menuSelectKey(key, isrepeat)
 end
 
 function love.update(dt)
+    if state == "title" then
+        b:update(dt)
+        bf:update(dt)
+    else
+    end
     gameTime(dt)
+    selectFunc()
 end
 
 function love.draw()
     gameUI()
-    if mode == "none" then
-    elseif mode == "40" then
-        timer()
-        lines40()
-    elseif mode == "marathon" then
-        timer()
-        lines()
-        score()
-    end
+    states()
     debugToggle()
+    -- love.graphics.print(textSelect, 30, 75)
+    -- love.graphics.print(menuSelectY, 30, 90)
+end
+
+local love_errorhandler = love.errorhandler
+
+function love.errorhandler(msg)
+    if lldebugger then
+        error(msg, 2)
+    else
+        return love_errorhandler(msg)
+    end
 end

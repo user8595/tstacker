@@ -1,13 +1,24 @@
+-- defaults
+function defaults()
+    love.graphics.setDefaultFilter("nearest", "nearest")
+    love.graphics.setBackgroundColor(bgCol) 
+end
+
 -- fonts
 function fonts()
     monogram = love.graphics.setNewFont("/assets/monogram.ttf", 22)
-    monogramL = love.graphics.setNewFont("/assets/monogram.ttf", 26)
+    monogramL = love.graphics.setNewFont("/assets/monogram.ttf", 24)
+    button = love.graphics.setNewFont("/assets/monogram.ttf", 28)
     smallText = love.graphics.setNewFont("/assets/Picopixel.ttf", 12)
 end
 
 -- overall board position
 boardPosX = 0
 boardPosY = 0
+
+-- text selection background
+textSelect = 1
+menuSelectY = 55
 
 -- next queue count
 nextCount = 3
@@ -16,6 +27,9 @@ nextCount = 3
 bgCol = {
     0.05, 0.05, 0.05
 }
+
+titleText = {1, 1, 1, 1}
+uiText = {1, 1, 1, 1}
 
 board = {
     -- vertical lines
@@ -96,6 +110,7 @@ keybinds = {
     cc = "z",
     c = "x",
     hold = "c",
+    restart = "`",
 
     -- keybinds
     -- up = "w",
@@ -123,10 +138,14 @@ stats = {
 }
 
 -- game state
-state = "title" -- "title", "game"
+state = "title" -- "title", "mode", "game"
 mode = "none"   -- "40", "marathon"
 
 -- booleans
 isTimer = false
 isOverlay = false
 isDebug = false
+
+-- menus
+isAbout = false
+isOptions = false
