@@ -22,6 +22,7 @@ end
 function love.update(dt)
     if state == "title" then
         titleEffect(dt)
+        exitTimeout(dt)
     elseif state == "menu" or state == "mode" then
         menuEffect(dt)
         selectFunc()
@@ -36,6 +37,7 @@ function love.draw()
     states()
     popupStates()
     debugToggle()
+    exitPopup()
     -- love.graphics.print(textSelect, 30, 75)
     -- love.graphics.print(menuSelectY, 30, 90)
 end

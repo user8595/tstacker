@@ -17,7 +17,7 @@ end
 function title()
     love.graphics.print("TStacker", monogramL, wWidth / 2 - 28, wHeight / 2 - 120)
     love.graphics.print({titleText, "Press Enter"}, monogram, wWidth / 2 - 36, wHeight / 2 + 100)
-    love.graphics.print({{0.5, 0.5, 0.5}, "incomplete"}, monogram, 10, wHeight - 27)
+    love.graphics.print({{0.25, 0.25, 0.25}, "incomplete"}, monogram, 10, wHeight - 27)
 end
 
 function menu()

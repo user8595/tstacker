@@ -16,9 +16,56 @@ function selectFunc()
     end
 end
 
-function inputMenu(key, isrepeat)
-    if key == "escape" and state == "title" then
+local exitInput = 0
+local exitTimer = 0
+local exitColor = {0, 0, 0, 1}
+local exitText = {1, 1, 1, 1}
+
+-- exit confirmation text function
+function exitTimeout(dt)
+    if exitInput == 0 then
+    end
+
+    if exitInput == 1 then
+        exitTimer = exitTimer + dt
+    end
+
+    if exitTimer < 1 then
+        exitColor[4] = 1
+        exitText[4] = 1
+    end
+
+    if exitTimer >= 1 then
+        exitColor[4] = exitColor[4] - dt * 2.5
+        exitText[4] = exitText[4] - dt * 2.5
+        if exitColor[4] <= 0 and exitText[4] <= 0 then
+            exitColor[4] = 0
+            exitText[4] = 0
+        end
+    end
+    if exitTimer >= 1.45 then
+        exitTimer = 0
+        exitInput = 0
+    end
+end
+
+-- exit confirmation text box
+function exitPopup(dt)
+    if exitInput == 1 then
+        love.graphics.setColor(exitColor)
+        love.graphics.rectangle("fill", wWidth / 2 - 84, wHeight - 44, 180, 30)
+        love.graphics.setColor(exitText)
+        love.graphics.printf("Press ESC to quit", monogramL, wWidth / 2 - 84, wHeight - 39, 180, "center")
+    elseif exitInput == 2 then
         love.event.quit(0)
+    else
+    end
+end
+
+function inputMenu(key, isrepeat)
+        
+if key == "escape" and state == "title" then
+        exitInput = exitInput + 1
     elseif key == "escape" and state == "menu" and isAbout == false and isOptions == false then
         state = "title"
         selectReset()
@@ -26,6 +73,8 @@ function inputMenu(key, isrepeat)
         buttonCol[4] = 0.5
     elseif key == "escape" and state == "menu" and isOptions == true then
         isOptions = false
+        exitInput = 0
+        exitTimer = 0
     elseif key == "escape" and state == "menu" and isAbout == true then
         isAbout = false
     elseif key == "escape" and state == "mode" then
@@ -92,9 +141,12 @@ function menuEffect(dt)
     end
 end
 
+-- title select menu
 function tSMenu(key, isrepeat)
     if key == "return" and state == "title" then
         state = "menu"
+        exitInput = 0
+        exitTimer = 0
     elseif key == "return" and state == "menu" and textSelect == 1 and isAbout == false and isOptions == false then
         state = "mode"
     elseif key == "return" and state == "menu" and textSelect == 2 and isAbout == false and isOptions == false then
