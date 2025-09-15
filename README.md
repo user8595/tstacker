@@ -1,4 +1,4 @@
-# stacker
+# TStacker
 
 An simple old-school puzzle stacker made in the [LÖVE](https://www.love2d.org) game engine.
 
