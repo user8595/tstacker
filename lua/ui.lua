@@ -22,13 +22,13 @@ end
 
 function menu()
     love.graphics.setColor(uiText)
-    love.graphics.printf("Play", button, board.l1x, wHeight / 2 - 55, board.w, "center")
+    love.graphics.printf("Play", largeText, board.l1x, wHeight / 2 - 55, board.w, "center")
     love.graphics.setColor(uiText)
-    love.graphics.printf("Options", button, board.l1x, wHeight / 2 - 25, board.w, "center")
+    love.graphics.printf("Options", largeText, board.l1x, wHeight / 2 - 25, board.w, "center")
     love.graphics.setColor(uiText)
-    love.graphics.printf("About", button, board.l1x, wHeight / 2 + 5, board.w, "center")
+    love.graphics.printf("About", largeText, board.l1x, wHeight / 2 + 5, board.w, "center")
     love.graphics.setColor(uiText)
-    love.graphics.printf("Exit", button, board.l1x, wHeight / 2 + 35, board.w, "center")
+    love.graphics.printf("Exit", largeText, board.l1x, wHeight / 2 + 35, board.w, "center")
 end
 
 function menuSelect()
@@ -36,16 +36,39 @@ function menuSelect()
     love.graphics.rectangle("fill", board.l1x, wHeight / 2 - menuSelectY, board.w, 27)
 end
 
+function menuTip()
+    love.graphics.setColor(0.5,0.5,0.5)
+    love.graphics.printf(keybinds.up:gsub("^%l", string.upper) .. "/" .. keybinds.down:gsub("^%l", string.upper) .. ": Select\nEnter: Confirm", monogram, board.l1x, wHeight - 46, board.w, "center")
+end
+
+function options()
+    love.graphics.setColor(popupOverlay)
+    love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
+end
+
+function about()
+    love.graphics.setColor(popupOverlay)
+    love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
+    love.graphics.setColor(popupCol)
+    love.graphics.rectangle("fill", wWidth / 2 - 115, wHeight / 2 - 85, 245, 205)
+    love.graphics.setColor(colour.border)
+    love.graphics.rectangle("line", wWidth / 2 - 115, wHeight / 2 - 85, 245, 205)
+    love.graphics.setColor(uiText)
+    love.graphics.printf("TStacker", largeText, wWidth / 2 - 113, wHeight / 2 - 73, 245, "center")
+    love.graphics.printf("Simple old-school\nstacker game", monogram, wWidth / 2 - 113, wHeight / 2 + 25, 245, "center")
+    love.graphics.setColor(0.5, 0.5, 0.5)
+    love.graphics.printf("Licensed in the\nMIT License.", monogram, wWidth / 2 - 113, wHeight / 2 + 70, 245, "center")
+end
+
 function modes()
     
 end
 
-function gameUI()
+function boardUI()
     -- board background
     love.graphics.setColor(colour.bg)
     love.graphics.rectangle("fill", board.l1x, board.l1y, board.w, board.h)
 
-    
     -- outer borders
     love.graphics.setColor(colour.border)
     love.graphics.line(board.l1x, board.l1y, board.l2x, board.l2y)
@@ -64,8 +87,7 @@ function gameUI()
     love.graphics.rectangle("line", board.nx, board.ny, board.nw, board.nh)
 
     -- next queue text frame
-    love.graphics.rectangle("line", board.n1x, board.n1y, board.n1w, board.n1h)
-    love.graphics.rectangle("fill", board.n1x, board.n1y, board.n1w, board.n1h)
+    love.graphics.rectangle("fill", board.n1x - 1, board.n1y, board.n1w + 2, board.n1h)
     love.graphics.setColor(colour.text)
     love.graphics.print("NEXT", monogram, board.n1x + 7, board.n1y - 1)
     
@@ -77,9 +99,7 @@ function gameUI()
     
     -- hold queue text frame
     love.graphics.setColor(colour.queue)
-    love.graphics.rectangle("line", board.h1x, board.h1y, board.h1w, board.h1h)
-    love.graphics.setColor(colour.queue)
-    love.graphics.rectangle("fill", board.h1x, board.h1y, board.h1w, board.h1h)
+    love.graphics.rectangle("fill", board.h1x - 1, board.h1y, board.h1w + 2, board.h1h)
     love.graphics.setColor(colour.text)
     love.graphics.print("HOLD", monogram, board.h1x + 7, board.h1y - 1)
 end

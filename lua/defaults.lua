@@ -6,7 +6,7 @@ end
 
 monogram = love.graphics.setNewFont("/assets/monogram.ttf", 22)
 monogramL = love.graphics.setNewFont("/assets/monogram.ttf", 24)
-button = love.graphics.setNewFont("/assets/monogram.ttf", 28)
+largeText = love.graphics.setNewFont("/assets/monogram.ttf", 28)
 smallText = love.graphics.setNewFont("/assets/Picopixel.ttf", 12)
 
 -- overall board position
@@ -31,6 +31,8 @@ bgCol = {
 titleText = {1, 1, 1, 1}
 uiText = {1, 1, 1, 1}
 buttonCol = {0.3, 0.3, 0.3, 0.5}
+popupCol = {0, 0, 0}
+popupOverlay = {0, 0, 0, 0.5}
 
 board = {
     -- vertical lines

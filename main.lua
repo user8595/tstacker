@@ -1,5 +1,6 @@
 require("lua.defaults")
 require("lua.menu")
+require("lua.states")
 require("lua.game")
 require("lua.ui")
 
@@ -31,8 +32,9 @@ function love.update(dt)
 end
 
 function love.draw()
-    gameUI()
+    boardUI()
     states()
+    popupStates()
     debugToggle()
     -- love.graphics.print(textSelect, 30, 75)
     -- love.graphics.print(menuSelectY, 30, 90)

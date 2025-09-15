@@ -24,6 +24,10 @@ function inputMenu(key, isrepeat)
         selectReset()
         bt = 0
         buttonCol[4] = 0.5
+    elseif key == "escape" and state == "menu" and isOptions == true then
+        isOptions = false
+    elseif key == "escape" and state == "menu" and isAbout == true then
+        isAbout = false
     elseif key == "escape" and state == "mode" then
         state = "menu"
         selectReset()
@@ -78,11 +82,11 @@ end
 function menuEffect(dt)
     if state == "menu" or state == "mode" then
         bt = bt + dt
-        if bt > 0 and bt <= 0.5 then
-            buttonCol[4] = buttonCol[4] - dt / 4
-        elseif bt >= 0.5 and bt < 1 then
-            buttonCol[4] = buttonCol[4] + dt / 4
-        elseif bt >= 1 then
+        if bt > 0 and bt <= 1 then
+            buttonCol[4] = buttonCol[4] - dt / 5.5
+        elseif bt >= 1 and bt < 2 then
+            buttonCol[4] = buttonCol[4] + dt / 5.5
+        elseif bt >= 2 then
             bt = 0
         end
     end
