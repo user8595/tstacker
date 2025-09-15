@@ -9,8 +9,7 @@ end
 
 function love.load()
     defaults()
-    fonts()
-    titleBlink()
+    gameEffect()
 end
 
 function love.keypressed(key, isrepeat)
@@ -21,12 +20,14 @@ end
 
 function love.update(dt)
     if state == "title" then
-        b:update(dt)
-        bf:update(dt)
+        titleEffect(dt)
+    elseif state == "menu" or state == "mode" then
+        menuEffect(dt)
+        selectFunc()
+    elseif state == "game" then
+        gameTime(dt)
     else
     end
-    gameTime(dt)
-    selectFunc()
 end
 
 function love.draw()

@@ -14,7 +14,6 @@ function selectFunc()
         textSelect = 1
         menuSelectY = 55
     end
-
 end
 
 function inputMenu(key, isrepeat)
@@ -23,6 +22,8 @@ function inputMenu(key, isrepeat)
     elseif key == "escape" and state == "menu" and isAbout == false and isOptions == false then
         state = "title"
         selectReset()
+        bt = 0
+        buttonCol[4] = 0.5
     elseif key == "escape" and state == "mode" then
         state = "menu"
         selectReset()
@@ -64,6 +65,26 @@ function menuSelectKey(key, isrepeat)
     elseif key == keybinds.up and state == "menu" and isAbout == false and isOptions == false then
         menuSelectY = menuSelectY + 30
         textSelect = textSelect - 1
+    end
+end
+
+function titleEffect(dt)
+    if state == "title" then
+        b:update(dt)
+        bf:update(dt)
+    end
+end
+
+function menuEffect(dt)
+    if state == "menu" or state == "mode" then
+        bt = bt + dt
+        if bt > 0 and bt <= 0.5 then
+            buttonCol[4] = buttonCol[4] - dt / 4
+        elseif bt >= 0.5 and bt < 1 then
+            buttonCol[4] = buttonCol[4] + dt / 4
+        elseif bt >= 1 then
+            bt = 0
+        end
     end
 end
 
