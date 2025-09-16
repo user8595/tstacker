@@ -25,6 +25,7 @@ function love.update(dt)
 		exitTimeout(dt)
 	elseif state == "menu" or state == "mode" then
 		menuEffect(dt)
+		menuTextEffect(dt)
 		selectFunc()
 	elseif state == "game" then
 		gameTime(dt)

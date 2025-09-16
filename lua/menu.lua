@@ -7,12 +7,33 @@ end
 
 function selectFunc()
 	-- menu screen
-	if textSelect < 1 and state == "menu" and isAbout == false then
+	if textSelect == 1 and state == "mode" then
+		menuSelectY = 55
+	elseif textSelect < 1 and state == "menu" and isAbout == false then
 		textSelect = 4
 		menuSelectY = -35
 	elseif textSelect > 4 and state == "menu" and isAbout == false then
 		textSelect = 1
 		menuSelectY = 55
+	end
+
+	-- mode screen
+	if textSelect == 1 and state == "mode" then
+		menuSelectY = 95
+	elseif textSelect < 1 and state == "mode" then
+		textSelect = 3
+		menuSelectY = 35
+	elseif textSelect > 3 and state == "mode" then
+		textSelect = 1
+		menuSelectY = 95
+	end
+
+	if textSelect == 1 and state == "mode" then
+		mode = "marathon"
+	elseif textSelect == 2 and state == "mode" then
+		mode = "40"
+	elseif textSelect == 3 and state == "mode" then
+		mode = "practice"
 	end
 end
 
@@ -49,16 +70,35 @@ function exitTimeout(dt)
 	end
 end
 
+local boxY = 44
 -- exit confirmation text box
 function exitPopup(dt)
 	if exitInput == 1 then
 		love.graphics.setColor(exitColor)
-		love.graphics.rectangle("fill", wWidth / 2 - 84, wHeight - 44, 180, 30)
+		love.graphics.rectangle("fill", wWidth / 2 - 84, wHeight - boxY, 180, 30)
 		love.graphics.setColor(exitText)
-		love.graphics.printf("Press ESC to quit", monogramL, wWidth / 2 - 84, wHeight - 39, 180, "center")
+		love.graphics.printf("Press ESC to quit", monogramL, wWidth / 2 - 84, wHeight - boxY + 5, 180, "center")
 	elseif exitInput == 2 then
 		love.event.quit(0)
 	else
+	end
+end
+
+function menuTextEffect(dt)
+	-- mode screen
+	if state == "mode" and menuTextY < 140 then
+		menuTextY = menuTextY + dt * 530
+	end
+	if state == "mode" and menuTextY > 144 then
+		menuTextY = 144
+	end
+	-- menu screen
+	if state == "menu" and menuTextY > 110 then
+		menuTextY = menuTextY - dt * 530
+	end
+
+	if state == "menu" and menuTextY < 110 then
+		menuTextY = 110
 	end
 end
 
@@ -78,6 +118,7 @@ function inputMenu(key, isrepeat)
 		isAbout = false
 	elseif key == "escape" and state == "mode" then
 		state = "menu"
+		mode = "none"
 		selectReset()
 	end
 
@@ -111,10 +152,14 @@ function inputMenu(key, isrepeat)
 end
 
 function menuSelectKey(key, isrepeat)
-	if key == keybinds.down and state == "menu" and isAbout == false and isOptions == false then
+	if key == keybinds.down and state == "menu" and isAbout == false and isOptions == false or
+		key == keybinds.down and state == "mode"
+	then
 		menuSelectY = menuSelectY - 30
 		textSelect = textSelect + 1
-	elseif key == keybinds.up and state == "menu" and isAbout == false and isOptions == false then
+	elseif key == keybinds.up and state == "menu" and isAbout == false and isOptions == false or
+		key == keybinds.up and state == "mode"
+	then
 		menuSelectY = menuSelectY + 30
 		textSelect = textSelect - 1
 	end
@@ -154,6 +199,10 @@ function tSMenu(key, isrepeat)
 		isAbout = true
 	elseif key == "return" and state == "menu" and textSelect == 4 and isAbout == false and isOptions == false then
 		love.event.quit(0)
+	end
+
+	if key == "return" and state == "mode" and textSelect == 1 then
+
 	end
 end
 

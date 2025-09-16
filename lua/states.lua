@@ -1,26 +1,32 @@
 function states()
+	-- game states
 	if state == "title" then
 		title()
+		version()
 	elseif state == "menu" then
 		menuSelect()
 		menu()
 		menuTip()
+		version()
 	elseif state == "mode" then
+		menuSelect()
 		menuTip()
-	elseif state == "mode" or state == "game" then
 		modes()
-		if mode == "none" then
-		elseif mode == "40" then
-			timer()
-			lines40()
-		elseif mode == "marathon" then
-			timer()
-			lines()
-			score()
-		end
 	elseif state == "game" then
 		game()
 		grid()
+	end
+
+	-- game modes
+	if mode == "none" then
+	elseif mode == "40" or mode == "practice" then
+		timer()
+		linesShort()
+	elseif mode == "marathon" then
+		timer()
+		lines()
+		score()
+	else
 	end
 end
 

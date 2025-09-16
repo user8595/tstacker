@@ -20,15 +20,18 @@ wHeight = love.graphics.getHeight()
 textSelect = 1
 menuSelectY = 55
 
+-- menu text mode
+menuTextY = 110
+
 -- next queue count
 nextCount = 3
 
 -- game background color
+-- stylua: ignore start
 bgCol = {
-	0.05,
-	0.05,
-	0.05,
+	0.05, 0.05, 0.05,
 }
+-- stylua: ignore end
 
 titleText = { 1, 1, 1, 1 }
 uiText = { 1, 1, 1, 1 }
@@ -78,43 +81,33 @@ board = {
 }
 
 -- board colours
+-- stylua: ignore start
 colour = {
 	bg = {
-		0.04,
-		0.04,
-		0.04,
+		0.04, 0.04,	0.04,
 	},
 
 	grid = {
-		0.07,
-		0.07,
-		0.07,
+		0.07, 0.07, 0.07,
 	},
 
 	border = {
-		0.3,
-		0.3,
-		0.3,
+		0.3, 0.3, 0.3,
 	},
 
 	queue = {
-		0.3,
-		0.3,
-		0.3,
+		0.3, 0.3, 0.3,
 	},
 
 	top = {
-		0.2,
-		0.2,
-		0.2,
+		0.2, 0.2, 0.2,
 	},
 
 	text = {
-		1,
-		1,
-		1,
+		1, 1, 1,
 	},
 }
+-- stylua: ignore end
 
 block = {
 	w = 18,
@@ -144,23 +137,28 @@ keybinds = {
 	keyX = wWidth - 102,
 	keyY = wHeight - 30,
 
+	-- stylua: ignore start
 	-- key colour
 	colour = {
-		0.75,
-		0.75,
-		0.75,
+		0.75, 0.75, 0.75,
 	},
+	-- stylua: ignore end
 }
 
 -- stats
 stats = {
 	lines = 0,
+	level = 1,
 	score = 0,
 }
 
+-- level target in marathon mode
+levelTarget = 10 * stats.level
+
 -- game state
-state = "title" -- "title", "menu", "mode", "game"
-mode = "none" -- "40", "marathon"
+state = "title" -- values: "title", "menu", "mode", "game"
+-- game ui display modes
+mode = "none" -- values: "40", "marathon", "practice"
 
 -- booleans
 isTimer = false

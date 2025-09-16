@@ -14,13 +14,21 @@ function gameEffect()
 	bt = 0
 end
 
+function version()
+	love.graphics.setColor(0.25, 0.25, 0.25)
+	love.graphics.print("incomplete", monogram, 10, wHeight - 27)
+end
+
 function title()
 	love.graphics.print("TStacker", monogramL, wWidth / 2 - 28, wHeight / 2 - 120)
 	love.graphics.print({ titleText, "Press Enter" }, monogram, wWidth / 2 - 36, wHeight / 2 + 100)
-	love.graphics.print({ { 0.25, 0.25, 0.25 }, "incomplete" }, monogram, 10, wHeight - 27)
 end
 
 function menu()
+	love.graphics.setColor(0.25, 0.25, 0.25, 0.25)
+	love.graphics.rectangle("fill", board.l1x, wHeight / 2 - menuTextY, board.w, 24)
+	love.graphics.setColor(uiText)
+	love.graphics.printf("Main Menu", monogramL, board.l1x, wHeight / 2 - menuTextY, board.w, "center")
 	love.graphics.setColor(uiText)
 	love.graphics.printf("Play", largeText, board.l1x, wHeight / 2 - 55, board.w, "center")
 	love.graphics.setColor(uiText)
@@ -59,10 +67,25 @@ function about()
 	love.graphics.printf("TStacker", largeText, wWidth / 2 - 113, wHeight / 2 - 73, 245, "center")
 	love.graphics.printf("Simple old-school\nstacker game", monogram, wWidth / 2 - 113, wHeight / 2 + 25, 245, "center")
 	love.graphics.setColor(0.5, 0.5, 0.5)
-	love.graphics.printf("Licensed in the\nMIT License.", monogram, wWidth / 2 - 113, wHeight / 2 + 70, 245, "center")
+	love.graphics.printf("Licensed under the\nMIT License.", monogram, wWidth / 2 - 113, wHeight / 2 + 70, 245, "center")
 end
 
-function modes() end
+function modes()
+	love.graphics.setColor(0.25, 0.25, 0.25, 0.25)
+	love.graphics.rectangle("fill", board.l1x, wHeight / 2 - menuTextY, board.w, 24)
+	love.graphics.setColor(uiText)
+	love.graphics.printf("Select Mode", monogramL, board.l1x, wHeight / 2 - menuTextY, board.w, "center")
+	love.graphics.setColor(uiText)
+	love.graphics.printf("Marathon", largeText, board.l1x, wHeight / 2 - 95, board.w, "center")
+	love.graphics.setColor(uiText)
+	love.graphics.printf("Sprint", largeText, board.l1x, wHeight / 2 - 65, board.w, "center")
+	love.graphics.setColor(uiText)
+	love.graphics.printf("Practice", largeText, board.l1x, wHeight / 2 - 35, board.w, "center")
+end
+
+function pauseScreen()
+	
+end
 
 function boardUI()
 	-- board background
@@ -118,7 +141,7 @@ function grid()
 	end
 end
 
-function lines40()
+function linesShort()
 	-- lines text
 	love.graphics.setColor(colour.border)
 	love.graphics.print("Lines", smallText, board.nx, board.ny + 278)
@@ -127,11 +150,14 @@ function lines40()
 end
 
 function lines()
+	local textY = board.hy + 288
 	-- lines text
-	love.graphics.setColor(colour.border)
-	love.graphics.print("Lines", smallText, board.nx, board.ny + 278)
 	love.graphics.setColor(colour.text)
-	love.graphics.print(stats.lines, monogramL, board.nx, board.ny + 285)
+	love.graphics.printf(stats.lines, largeText, board.hx + 45, textY, 40, "center")
+	love.graphics.setColor(colour.border)
+	love.graphics.line(board.hx + 45, textY + 25, board.hx + 85, textY + 25)
+	love.graphics.setColor(colour.text)
+	love.graphics.printf(levelTarget, largeText, board.hx + 45, textY + 25, 40, "center")
 end
 
 function score()
