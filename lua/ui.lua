@@ -20,7 +20,10 @@ function version()
 end
 
 function title()
-	love.graphics.print("TStacker", monogramL, wWidth / 2 - 28, wHeight / 2 - 120)
+	love.graphics.setColor(popupOverlay)
+	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
+	love.graphics.setColor(uiText)
+	love.graphics.draw(logo, board.l1x - 125, board.l1y + 40)
 	love.graphics.print({ titleText, "Press Enter" }, monogram, wWidth / 2 - 36, wHeight / 2 + 100)
 end
 
@@ -60,14 +63,14 @@ function about()
 	love.graphics.setColor(popupOverlay)
 	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
 	love.graphics.setColor(popupCol)
-	love.graphics.rectangle("fill", wWidth / 2 - 115, wHeight / 2 - 85, 245, 205)
+	love.graphics.rectangle("fill", wWidth / 2 - 115, wHeight / 2 - 92, 245, 205)
 	love.graphics.setColor(colour.border)
-	love.graphics.rectangle("line", wWidth / 2 - 115, wHeight / 2 - 85, 245, 205)
+	love.graphics.rectangle("line", wWidth / 2 - 115, wHeight / 2 - 92, 245, 205)
 	love.graphics.setColor(uiText)
-	love.graphics.printf("TStacker", largeText, wWidth / 2 - 113, wHeight / 2 - 73, 245, "center")
-	love.graphics.printf("Simple old-school\nstacker game", monogram, wWidth / 2 - 113, wHeight / 2 + 25, 245, "center")
+	love.graphics.printf("TStacker", largeText, wWidth / 2 - 113, wHeight / 2 - 82, 245, "center")
+	love.graphics.printf("Simple old-school\nstacker game", monogram, wWidth / 2 - 113, wHeight / 2 + 18, 245, "center")
 	love.graphics.setColor(0.5, 0.5, 0.5)
-	love.graphics.printf("Licensed under the\nMIT License.", monogram, wWidth / 2 - 113, wHeight / 2 + 70, 245, "center")
+	love.graphics.printf("Licensed under the\nMIT License.", monogram, wWidth / 2 - 113, wHeight / 2 + 63, 245, "center")
 end
 
 function modes()
@@ -80,18 +83,17 @@ function modes()
 	love.graphics.setColor(uiText)
 	love.graphics.printf("Sprint", largeText, board.l1x, wHeight / 2 - 65, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Practice", largeText, board.l1x, wHeight / 2 - 35, board.w, "center")
+	love.graphics.printf("Ultra", largeText, board.l1x, wHeight / 2 - 35, board.w, "center")
+	love.graphics.setColor(uiText)
+	love.graphics.printf("Practice", largeText, board.l1x, wHeight / 2 - 5, board.w, "center")
 end
 
 function pauseScreen()
-	
+	love.graphics.setColor(popupOverlay)
+	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
 end
 
 function boardUI()
-	-- board background
-	love.graphics.setColor(colour.bg)
-	love.graphics.rectangle("fill", board.l1x, board.l1y, board.w, board.h)
-
 	-- outer borders
 	love.graphics.setColor(colour.border)
 	love.graphics.line(board.l1x, board.l1y, board.l2x, board.l2y)
@@ -128,6 +130,10 @@ function boardUI()
 end
 
 function grid()
+	-- board background
+	love.graphics.setColor(colour.bg)
+	love.graphics.rectangle("fill", board.l1x, board.l1y, board.w, board.h)
+
 	-- board grid
 	love.graphics.setColor(colour.grid)
 	-- vertical lines
@@ -142,11 +148,17 @@ function grid()
 end
 
 function linesShort()
+	local textY
+	if mode == "ultra" then
+		textY = board.ny + 245
+	else
+		textY = board.ny + 278
+	end
 	-- lines text
 	love.graphics.setColor(colour.border)
-	love.graphics.print("Lines", smallText, board.nx, board.ny + 278)
+	love.graphics.print("Lines", smallText, board.nx, textY)
 	love.graphics.setColor(colour.text)
-	love.graphics.print(stats.lines, monogramL, board.nx, board.ny + 285)
+	love.graphics.print(stats.lines, monogramL, board.nx, textY + 7)
 end
 
 function lines()
@@ -267,6 +279,8 @@ function debugUI()
 		popup = "isAbout"
 	elseif isOptions == true then
 		popup = "isOptions"
+	elseif isPaused == true then
+		popup = "isPaused"
 	else
 		popup = "none"
 	end

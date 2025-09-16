@@ -14,7 +14,6 @@ function states()
 		modes()
 	elseif state == "game" then
 		game()
-		grid()
 	end
 
 	-- game modes
@@ -26,7 +25,10 @@ function states()
 		timer()
 		lines()
 		score()
-	else
+	elseif mode == "ultra" then
+		timer()
+		linesShort()
+		score()
 	end
 end
 
@@ -36,6 +38,10 @@ function popupStates()
 	elseif isAbout == true then
 		about()
 	else
+	end
+	
+	if isPaused == true then
+		pauseScreen()
 	end
 end
 

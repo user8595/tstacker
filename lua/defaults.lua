@@ -24,7 +24,7 @@ menuSelectY = 55
 menuTextY = 110
 
 -- next queue count
-nextCount = 3
+nextCount = 5
 
 -- game background color
 -- stylua: ignore start
@@ -110,8 +110,8 @@ colour = {
 -- stylua: ignore end
 
 block = {
-	w = 18,
-	h = 18,
+	x = board.l1x,
+	y = board.l1y
 }
 
 keybinds = {
@@ -164,6 +164,7 @@ mode = "none" -- values: "40", "marathon", "practice"
 isTimer = false
 isOverlay = false
 isDebug = false
+isPaused = false
 
 -- menus
 isAbout = false

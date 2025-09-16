@@ -21,9 +21,9 @@ function selectFunc()
 	if textSelect == 1 and state == "mode" then
 		menuSelectY = 95
 	elseif textSelect < 1 and state == "mode" then
-		textSelect = 3
-		menuSelectY = 35
-	elseif textSelect > 3 and state == "mode" then
+		textSelect = 4
+		menuSelectY = 5
+	elseif textSelect > 4 and state == "mode" then
 		textSelect = 1
 		menuSelectY = 95
 	end
@@ -33,6 +33,8 @@ function selectFunc()
 	elseif textSelect == 2 and state == "mode" then
 		mode = "40"
 	elseif textSelect == 3 and state == "mode" then
+		mode = "ultra"
+	elseif textSelect == 4 and state == "mode" then		
 		mode = "practice"
 	end
 end
@@ -199,10 +201,8 @@ function tSMenu(key, isrepeat)
 		isAbout = true
 	elseif key == "return" and state == "menu" and textSelect == 4 and isAbout == false and isOptions == false then
 		love.event.quit(0)
-	end
-
-	if key == "return" and state == "mode" and textSelect == 1 then
-
+	elseif key == "return" and state == "mode" and textSelect >= 1 then
+		state = "game"
 	end
 end
 

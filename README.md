@@ -6,5 +6,6 @@ Very incomplete.
 
 ### Controls
 
+- ESC: Pause game
 - F4: Toggle debug menu
 - F8: Toggle input overlay

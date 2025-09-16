@@ -17,6 +17,7 @@ function love.keypressed(key, isrepeat)
 	inputMenu(key, isrepeat)
 	tSMenu(key, isrepeat)
 	menuSelectKey(key, isrepeat)
+	pauseKey(key, isrepeat)
 end
 
 function love.update(dt)
@@ -27,13 +28,18 @@ function love.update(dt)
 		menuEffect(dt)
 		menuTextEffect(dt)
 		selectFunc()
-	elseif state == "game" then
+	end
+	if isPaused == false then
 		gameTime(dt)
 	else
 	end
 end
 
 function love.draw()
+	if state == "game" then
+		grid()
+	else
+	end
 	boardUI()
 	states()
 	popupStates()
