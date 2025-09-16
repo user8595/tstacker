@@ -1,4 +1,4 @@
-# ![Game logo](./assets/textures/logo.png)
+![Game logo](./assets/textures/logo.png)
 
 An simple old-school puzzle stacker made in the [LÖVE](https://www.love2d.org) game engine.
 
