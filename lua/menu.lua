@@ -63,8 +63,7 @@ function exitPopup(dt)
 end
 
 function inputMenu(key, isrepeat)
-        
-if key == "escape" and state == "title" then
+    if key == "escape" and state == "title" then
         exitInput = exitInput + 1
     elseif key == "escape" and state == "menu" and isAbout == false and isOptions == false then
         state = "title"
@@ -74,7 +73,6 @@ if key == "escape" and state == "title" then
     elseif key == "escape" and state == "menu" and isOptions == true then
         isOptions = false
         exitInput = 0
-        exitTimer = 0
     elseif key == "escape" and state == "menu" and isAbout == true then
         isAbout = false
     elseif key == "escape" and state == "mode" then
@@ -146,7 +144,6 @@ function tSMenu(key, isrepeat)
     if key == "return" and state == "title" then
         state = "menu"
         exitInput = 0
-        exitTimer = 0
     elseif key == "return" and state == "menu" and textSelect == 1 and isAbout == false and isOptions == false then
         state = "mode"
     elseif key == "return" and state == "menu" and textSelect == 2 and isAbout == false and isOptions == false then
