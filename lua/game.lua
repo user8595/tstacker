@@ -3,7 +3,6 @@ require("lua.textures")
 function gameInit()
 	isPaused = false
 	isTimer = false
-	mode = "none"
 	textSelect = 1
 	sec = 0
 	min = 0
@@ -50,6 +49,7 @@ function pauseKey(key, isrepeat)
 	elseif key == "return" and isPaused and textSelect == 3 then
 		state = "menu"
 		menuTextY = 110
+		mode = "none"
 		gameInit()
 	end
 end
