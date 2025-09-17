@@ -227,12 +227,33 @@ function tSMenu(key, isrepeat)
 	end
 end
 
+iconIncrement = 1
 function menuClick(x, y, button)
 	-- license screen
 	if x >= 33 and x <= 179 and y >= 412 and y <= 440 and isAbout and isLicense == false and button == 1 then
 		isLicense = true
 	elseif x >= 33 and x <= 176 and y >= 412 and y <= 440 and isAbout and isLicense == true and button == 1 then
 		isLicense = false
+	end
+
+	if x >= 36 and x <= 99 and y >= 260 and y <= 325 and isAbout and isLicense == false then
+		iconIncrement = iconIncrement + 1
+	end
+end
+
+function iconEgg()
+	if iconIncrement == 1 then
+		iconAbout = icoEasterEgg[1]
+	elseif iconIncrement == 2 then
+		iconAbout = icoEasterEgg[2]
+	elseif iconIncrement == 3 then
+		iconAbout = icoEasterEgg[3]
+	elseif iconIncrement == 4 then
+		iconAbout = icoEasterEgg[4]
+	end
+
+	if iconIncrement > 4 then
+		iconIncrement = 1
 	end
 end
 

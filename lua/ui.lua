@@ -1,8 +1,11 @@
 local cron = require("lib.cron")
+require("lua.textures")
 
 -- pause screen button
 local pauseX = wWidth / 2 - 54
 local pauseY = wHeight / 2 - 50
+
+iconAbout = icoEasterEgg[1]
 
 function gameEffect()
 	function tb()
@@ -74,7 +77,7 @@ function about()
 	love.graphics.setColor(popupOverlay)
 	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
 	love.graphics.setColor(1, 1, 1)
-	love.graphics.draw(icon, board.l1x - 200, board.l1y + 195, 0, 0.25, 0.25)
+	love.graphics.draw(iconAbout, board.l1x - 200, board.l1y + 195, 0, 0.25, 0.25)
 	love.graphics.setColor(uiText)
 	love.graphics.print("TStacker", largeText, board.l1x - 200, board.l1y + 270)
 	love.graphics.print("Simple old-school\nstacker game", monogram, board.l1x - 200, board.l1y + 298)

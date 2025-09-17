@@ -22,6 +22,7 @@ function gameLoop(dt)
     
 	if isAbout then
 		licenseHover()
+		iconEgg()
 	end
     
 	if isPaused == false then

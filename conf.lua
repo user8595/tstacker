@@ -2,6 +2,7 @@ function love.conf(t)
     t.window.title = "TStacker"
     t.window.icon = nil
     t.identity = "TStacker"
+    t.version = "11.5"
     t.window.width = 640
     t.window.height = 480
     t.window.fullscreentype = "desktop"
