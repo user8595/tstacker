@@ -1,5 +1,9 @@
 local cron = require("lib.cron")
 
+-- pause screen button
+local pauseX = wWidth / 2 - 54
+local pauseY = wHeight / 2 - 50
+
 function gameEffect()
 	function tb()
 		titleText = { 1, 1, 1, 0 }
@@ -16,7 +20,7 @@ end
 
 function version()
 	love.graphics.setColor(0.25, 0.25, 0.25)
-	love.graphics.print("incomplete", monogram, 10, wHeight - 27)
+	love.graphics.print(gameVer, monogram, 10, wHeight - 27)
 end
 
 function title()
@@ -57,20 +61,38 @@ end
 function options()
 	love.graphics.setColor(popupOverlay)
 	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
+	love.graphics.setColor(popupCol)
+	love.graphics.rectangle("fill", wWidth / 2 - 190, wHeight / 2 - 165, 400, 340)
+	love.graphics.setColor(colour.border)
+	love.graphics.rectangle("line", wWidth / 2 - 190, wHeight / 2 - 165, 400, 340)
+	love.graphics.setColor(uiText)
+	love.graphics.print("Options", largeText, wWidth / 2 - 170, wHeight / 2 - 150)
+
 end
 
 function about()
 	love.graphics.setColor(popupOverlay)
 	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
-	love.graphics.setColor(popupCol)
-	love.graphics.rectangle("fill", wWidth / 2 - 115, wHeight / 2 - 92, 245, 205)
-	love.graphics.setColor(colour.border)
-	love.graphics.rectangle("line", wWidth / 2 - 115, wHeight / 2 - 92, 245, 205)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.draw(icon, board.l1x - 200, board.l1y + 195, 0, 0.25, 0.25)
 	love.graphics.setColor(uiText)
-	love.graphics.printf("TStacker", largeText, wWidth / 2 - 113, wHeight / 2 - 82, 245, "center")
-	love.graphics.printf("Simple old-school\nstacker game", monogram, wWidth / 2 - 113, wHeight / 2 + 18, 245, "center")
+	love.graphics.print("TStacker", largeText, board.l1x - 200, board.l1y + 270)
+	love.graphics.print("Simple old-school\nstacker game", monogram, board.l1x - 200, board.l1y + 298)
+	love.graphics.printf("© 2025 eightyfivenine\n" .. gameVer, monogram, board.l1x - 200, board.l1y + 336, 573, "right")
+end
+
+function licenseButton()
+	love.graphics.setColor(licenseCol)
+	love.graphics.print("Licensed under the\nMIT License.", monogram, board.l1x - 200, board.l1y + 340)
 	love.graphics.setColor(0.5, 0.5, 0.5)
-	love.graphics.printf("Licensed under the\nMIT License.", monogram, wWidth / 2 - 113, wHeight / 2 + 63, 245, "center")
+	love.graphics.print("Click text above to show full license", smallText, board.l1x - 200, board.l1y + 380)
+end
+
+function license()
+	love.graphics.setColor(popupOverlay)
+	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
+	love.graphics.setColor(uiText)
+	love.graphics.print(licenseText, licenseFont, board.l1x - 200, board.l1y - 20)
 end
 
 function modes()
@@ -89,8 +111,24 @@ function modes()
 end
 
 function pauseScreen()
+	love.graphics.setColor(popupCol)
+	love.graphics.rectangle("fill", pauseX, pauseY, 120, 35)
+	love.graphics.setColor(colour.border)
+	love.graphics.rectangle("line", pauseX, pauseY, 120, 35)
+	love.graphics.setColor(uiText)
+	love.graphics.printf("PAUSE", largeText, pauseX, pauseY + 5, 120, "center")
+	love.graphics.printf("Continue", largeText, pauseX, pauseY + 40, 120, "center")
+	love.graphics.printf("Restart", largeText, pauseX, pauseY + 65, 120, "center")
+	love.graphics.printf("Exit", largeText, pauseX, pauseY + 90, 120, "center")
+end
+
+function pauseSelect()
+	-- prevents highlighter from being rendered infront of the text by drawing the highlighter first
+	-- which means we need to put the overlay in this highlight function, so that it's drawn first, then the pause screen itself
 	love.graphics.setColor(popupOverlay)
 	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
+	love.graphics.setColor(buttonCol)
+	love.graphics.rectangle("fill", pauseX, pauseY + pauseSelectY, 117, 24)
 end
 
 function boardUI()
@@ -167,9 +205,9 @@ function lines()
 	love.graphics.setColor(colour.text)
 	love.graphics.printf(stats.lines, largeText, board.hx + 45, textY, 40, "center")
 	love.graphics.setColor(colour.border)
-	love.graphics.line(board.hx + 45, textY + 25, board.hx + 85, textY + 25)
+	love.graphics.line(board.hx + 45, textY + 26, board.hx + 85, textY + 26)
 	love.graphics.setColor(colour.text)
-	love.graphics.printf(levelTarget, largeText, board.hx + 45, textY + 25, 40, "center")
+	love.graphics.printf(levelTarget, largeText, board.hx + 45, textY + 27, 40, "center")
 end
 
 function score()
@@ -259,14 +297,16 @@ end
 function debugUI()
 	local condOverlay = ""
 	local condOverlay1 = ""
+	local condOverlay2 = ""
 	local popup = "none"
 	local condY = 85
+	local condY1 = 85
 
-	if isOverlay == true then
+	if isOverlay then
 		condOverlay = "isOverlay"
 	else
 	end
-	if isTimer == true then
+	if isTimer then
 		condOverlay1 = "isTimer"
 		-- moves isTimer text to top if isOverlay is false
 		if isOverlay == false then
@@ -275,14 +315,22 @@ function debugUI()
 	else
 	end
 
-	if isAbout == true then
+	if isAbout then
 		popup = "isAbout"
-	elseif isOptions == true then
+	elseif isOptions then
 		popup = "isOptions"
-	elseif isPaused == true then
+	elseif isPaused then
 		popup = "isPaused"
 	else
 		popup = "none"
+	end
+
+	if isLicense then
+		condOverlay2 = "isLicense"
+		if isOverlay or isTimer then
+			condY1 = condY1 + 15
+		end
+	else
 	end
 
 	love.graphics.setColor(1, 1, 1)
@@ -293,4 +341,5 @@ function debugUI()
 	love.graphics.print(popup, monogram, 10, 70)
 	love.graphics.print(condOverlay, monogram, 10, condY)
 	love.graphics.print(condOverlay1, monogram, 10, condY + 15)
+	love.graphics.print(condOverlay2, monogram, 10, condY1)
 end

@@ -4,16 +4,23 @@ function defaults()
 	love.graphics.setBackgroundColor(bgCol)
 end
 
+-- game version
+gameVer = "incomplete"
+
+-- game fonts
 monogram = love.graphics.setNewFont("/assets/monogram.ttf", 22)
 monogramL = love.graphics.setNewFont("/assets/monogram.ttf", 24)
 largeText = love.graphics.setNewFont("/assets/monogram.ttf", 28)
 smallText = love.graphics.setNewFont("/assets/Picopixel.ttf", 12)
+licenseFont = love.graphics.setNewFont("/assets/monogram.ttf", 18)
 
 -- overall board position
 boardPosX = 0
 boardPosY = 0
 
+-- window width variable
 wWidth = love.graphics.getWidth()
+-- window height variable
 wHeight = love.graphics.getHeight()
 
 -- text selection background
@@ -23,21 +30,28 @@ menuSelectY = 55
 -- menu text mode
 menuTextY = 110
 
+-- pause button select highlight
+pauseSelectY = 41
+
 -- next queue count
 nextCount = 5
 
 -- game background color
 -- stylua: ignore start
 bgCol = {
-	0.05, 0.05, 0.05,
+	0.05, 0.05, 0.05
 }
 -- stylua: ignore end
 
+-- menu colors
 titleText = { 1, 1, 1, 1 }
 uiText = { 1, 1, 1, 1 }
 buttonCol = { 0.3, 0.3, 0.3, 0.5 }
 popupCol = { 0, 0, 0 }
 popupOverlay = { 0, 0, 0, 0.5 }
+
+-- license text color
+licenseCol = { 0.5, 0.5, 0.5 }
 
 board = {
 	-- vertical lines
@@ -165,6 +179,7 @@ isTimer = false
 isOverlay = false
 isDebug = false
 isPaused = false
+isLicense = false
 
 -- menus
 isAbout = false

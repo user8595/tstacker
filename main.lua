@@ -1,7 +1,9 @@
 require("lua.defaults")
 require("lua.menu")
+require("lua.content")
 require("lua.states")
 require("lua.game")
+require("lua.string")
 require("lua.ui")
 
 if arg[2] == "debug" then
@@ -20,33 +22,19 @@ function love.keypressed(key, isrepeat)
 	pauseKey(key, isrepeat)
 end
 
+function love.mousepressed(x, y, button)
+	menuClick(x, y, button)
+end
+
 function love.update(dt)
-	if state == "title" then
-		titleEffect(dt)
-		exitTimeout(dt)
-	elseif state == "menu" or state == "mode" then
-		menuEffect(dt)
-		menuTextEffect(dt)
-		selectFunc()
-	end
-	if isPaused == false then
-		gameTime(dt)
-	else
-	end
+	gameLoop(dt)
 end
 
 function love.draw()
-	if state == "game" then
-		grid()
-	else
-	end
-	boardUI()
-	states()
-	popupStates()
-	debugToggle()
-	exitPopup()
+	gameContent()
 	-- love.graphics.print(textSelect, 30, 75)
-	-- love.graphics.print(menuSelectY, 30, 90)
+	-- love.graphics.print(pauseSelectY, 30, 90)
+	-- love.graphics.print(love.mouse.getX() .. ", " .. love.mouse.getY(), monogram, 10, 160)
 end
 
 local love_errorhandler = love.errorhandler

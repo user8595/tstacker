@@ -7,7 +7,7 @@ end
 
 function selectFunc()
 	-- menu screen
-	if textSelect == 1 and state == "mode" then
+	if textSelect == 1 and state == "menu" then
 		menuSelectY = 55
 	elseif textSelect < 1 and state == "menu" and isAbout == false then
 		textSelect = 4
@@ -28,14 +28,26 @@ function selectFunc()
 		menuSelectY = 95
 	end
 
+	-- show respective mode ui when highlighted
 	if textSelect == 1 and state == "mode" then
 		mode = "marathon"
 	elseif textSelect == 2 and state == "mode" then
 		mode = "40"
 	elseif textSelect == 3 and state == "mode" then
 		mode = "ultra"
-	elseif textSelect == 4 and state == "mode" then		
+	elseif textSelect == 4 and state == "mode" then
 		mode = "practice"
+	end
+
+	-- pause screen
+	if textSelect == 1 and isPaused and state == "game" then
+		pauseSelectY = 41
+	elseif textSelect < 1 and isPaused and state == "game" then
+		textSelect = 3
+		pauseSelectY = 91
+	elseif textSelect > 3 and isPaused and state == "game" then
+		textSelect = 1
+		pauseSelectY = 41
 	end
 end
 
@@ -72,7 +84,7 @@ function exitTimeout(dt)
 	end
 end
 
-local boxY = 44
+local boxY = 90
 -- exit confirmation text box
 function exitPopup(dt)
 	if exitInput == 1 then
@@ -94,11 +106,11 @@ function menuTextEffect(dt)
 	if state == "mode" and menuTextY > 144 then
 		menuTextY = 144
 	end
+
 	-- menu screen
 	if state == "menu" and menuTextY > 110 then
 		menuTextY = menuTextY - dt * 530
 	end
-
 	if state == "menu" and menuTextY < 110 then
 		menuTextY = 110
 	end
@@ -112,12 +124,13 @@ function inputMenu(key, isrepeat)
 		selectReset()
 		bt = 0
 		buttonCol[4] = 0.5
-	elseif key == "escape" and state == "menu" and isOptions == true then
+	elseif key == "escape" and state == "menu" and isOptions then
 		isOptions = false
 		exitInput = 0
 		exitTimer = 0
-	elseif key == "escape" and state == "menu" and isAbout == true then
+	elseif key == "escape" and state == "menu" and isAbout then
 		isAbout = false
+		isLicense = false
 	elseif key == "escape" and state == "mode" then
 		state = "menu"
 		mode = "none"
@@ -126,21 +139,21 @@ function inputMenu(key, isrepeat)
 
 	if key == "f4" and isDebug == false then
 		isDebug = true
-	elseif key == "f4" and isDebug == true then
+	elseif key == "f4" and isDebug then
 		isDebug = false
 	end
 
 	if key == "f8" and isOverlay == false then
 		isOverlay = true
-	elseif key == "f8" and isOverlay == true then
+	elseif key == "f8" and isOverlay then
 		isOverlay = false
 	end
 
 	-- for testing purposes
 	-- if key == "f6" and isTimer == false then
-	--     isTimer = true
-	-- elseif key == "f6" and isTimer == true then
-	--     isTimer = false
+	-- 	isTimer = true
+	-- elseif key == "f6" and isTimer then
+	-- 	isTimer = false
 	-- end
 
 	-- if key == "f7" and mode == "none" then
@@ -163,6 +176,14 @@ function menuSelectKey(key, isrepeat)
 		key == keybinds.up and state == "mode"
 	then
 		menuSelectY = menuSelectY + 30
+		textSelect = textSelect - 1
+	end
+
+	if key == keybinds.down and isPaused then
+		pauseSelectY = pauseSelectY + 25
+		textSelect = textSelect + 1
+	elseif key == keybinds.up and isPaused then
+		pauseSelectY = pauseSelectY - 25
 		textSelect = textSelect - 1
 	end
 end
@@ -206,14 +227,36 @@ function tSMenu(key, isrepeat)
 	end
 end
 
+function menuClick(x, y, button)
+	-- license screen
+	if x >= 33 and x <= 179 and y >= 412 and y <= 440 and isAbout and isLicense == false and button == 1 then
+		isLicense = true
+	elseif x >= 33 and x <= 176 and y >= 412 and y <= 440 and isAbout and isLicense == true and button == 1 then
+		isLicense = false
+	end
+end
+
+function licenseHover()
+	local x, y = love.mouse.getPosition()
+
+	-- checks for mouse input
+	if x >= 33 and x <= 179 and y >= 412 and y <= 440 and isAbout and love.mouse.isDown(1) then
+		licenseCol = {0.35, 0.35, 0.35}
+	elseif x >= 33 and x <= 179 and y >= 412 and y <= 440 and isAbout then
+		licenseCol = {0.75, 0.75, 0.75}
+	else
+		licenseCol = {0.5, 0.5, 0.5}
+	end
+end
+
 -- key toggles
-function debugToggle()
-	if isDebug == true then
+function overlayToggle()
+	if isDebug then
 		debugUI()
 	else
 	end
 
-	if isOverlay == true then
+	if isOverlay and isAbout == false then
 		keyOverlay()
 	else
 	end

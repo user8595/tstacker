@@ -7,7 +7,10 @@ function states()
 		menuSelect()
 		menu()
 		menuTip()
-		version()
+		if isAbout == false then
+			version()
+		else
+		end
 	elseif state == "mode" then
 		menuSelect()
 		menuTip()
@@ -33,14 +36,19 @@ function states()
 end
 
 function popupStates()
-	if isOptions == true then
+	if isOptions then
 		options()
-	elseif isAbout == true then
+	elseif isAbout and isLicense == false then
 		about()
+		licenseButton()
+	elseif isLicense then
+		license()
+		licenseButton()
 	else
 	end
 	
-	if isPaused == true then
+	if isPaused then
+		pauseSelect()
 		pauseScreen()
 	end
 end
