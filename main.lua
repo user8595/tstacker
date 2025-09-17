@@ -34,7 +34,7 @@ function love.draw()
 	gameContent()
 	-- love.graphics.print(textSelect, 30, 75)
 	-- love.graphics.print(pauseSelectY, 30, 90)
-	-- love.graphics.print(love.mouse.getX() .. ", " .. love.mouse.getY(), monogram, 10, 160)
+	love.graphics.print(love.mouse.getX() .. ", " .. love.mouse.getY(), monogram, 10, 160)
 end
 
 local love_errorhandler = love.errorhandler

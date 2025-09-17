@@ -1,3 +1,5 @@
+require("lua.menu")
+
 function states()
 	-- game states
 	if state == "title" then
@@ -45,6 +47,8 @@ function popupStates()
 		license()
 		licenseButton()
 	else
+		-- reset easter egg orientation
+		iconIncrement = 1
 	end
 	
 	if isPaused then
