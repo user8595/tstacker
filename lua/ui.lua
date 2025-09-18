@@ -299,19 +299,6 @@ function debugUI()
 	local condY = 85
 	local condY1 = 85
 
-	if isOverlay then
-		condOverlay = "isOverlay"
-	else
-	end
-	if isTimer then
-		condOverlay1 = "isTimer"
-		-- moves isTimer text to top if isOverlay is false
-		if isOverlay == false then
-			condY = condY - 15
-		end
-	else
-	end
-
 	if isAbout then
 		popup = "isAbout"
 	elseif isOptions then
@@ -320,6 +307,20 @@ function debugUI()
 		popup = "isPaused"
 	else
 		popup = "none"
+	end
+
+	if isOverlay then
+		condOverlay = "isOverlay"
+	else
+	end
+
+	if isTimer then
+		condOverlay1 = "isTimer"
+		-- moves isTimer text to top if isOverlay is false
+		if isOverlay == false then
+			condY = condY - 15
+		end
+	else
 	end
 
 	if isLicense then

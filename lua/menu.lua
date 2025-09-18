@@ -116,18 +116,25 @@ function menuTextEffect(dt)
 	end
 end
 
+-- reset menu items to default position/colour
+local function menuReset()
+	bt = 0
+	buttonCol[4] = 0.5
+	exitInput = 0
+	exitTimer = 0
+end
+
 function inputMenu(key)
 	if key == "escape" and state == "title" then
 		exitInput = exitInput + 1
 	elseif key == "escape" and state == "menu" and isAbout == false and isOptions == false then
 		state = "title"
 		selectReset()
-		bt = 0
-		buttonCol[4] = 0.5
+		menuReset()
 	elseif key == "escape" and state == "menu" and isOptions then
 		isOptions = false
-		exitInput = 0
-		exitTimer = 0
+		tabSel = 1
+		tabSelX = 0
 	elseif key == "escape" and state == "menu" and isAbout then
 		isAbout = false
 		isLicense = false

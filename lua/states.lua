@@ -17,7 +17,7 @@ function states()
 		menuSelect()
 		menuTip()
 		modes()
-	elseif state == "game" then
+	elseif state == "game"and isPaused == false then
 		game()
 	end
 
@@ -56,11 +56,14 @@ function popupStates()
 	if isPaused then
 		pauseSelect()
 		pauseScreen()
+		menuTip()
 	end
 end
 
 function modeStates()
 	if mode == "40" and state == "game" then
 	elseif mode == "marathon" and state == "game" then
+	elseif mode == "ultra" and state == "game" then
+	elseif mode == "practice" and state == "game" then
 	end
 end

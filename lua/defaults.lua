@@ -171,7 +171,7 @@ levelTarget = 10 * stats.level
 -- game state
 state = "title" -- values: "title", "menu", "mode", "game"
 -- game ui display modes
-mode = "none" -- values: "40", "marathon", "practice"
+mode = "none" -- values: "none", "40", "marathon", "ultra", "practice"
 
 -- booleans
 isTimer = false

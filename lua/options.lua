@@ -5,9 +5,9 @@ local opt1, opt2, opt3
 -- tab option text colours
 local optSel = { 1, 1, 1 }
 -- selected tab
-local tabSel = 1
+tabSel = 1
 -- line highlight position
-local tabSelX = 0
+tabSelX = 0
 -- selected option boolean
 local isOptionSelect = false
 
@@ -25,7 +25,7 @@ function options()
 	love.graphics.setColor(opt2)
 	love.graphics.print("Controls", monogramL, popX + 163, popY + 45)
 	love.graphics.setColor(opt3)
-	love.graphics.print("Colours", monogramL, popX + 303, popY + 45)
+	love.graphics.print("Style", monogramL, popX + 313, popY + 45)
 end
 
 function optionsTip()
@@ -46,7 +46,7 @@ function optionsSelect(key)
 	if key == "left" and isOptions and isOptionSelect == false then
 		tabSel = tabSel - 1
 		tabSelX = tabSelX - (400 / 3)
-	elseif key == "right" and isOptionSelect == false then
+	elseif key == "right" and isOptions and isOptionSelect == false then
 		tabSel = tabSel + 1
 		tabSelX = tabSelX + (400 / 3)
 	end
