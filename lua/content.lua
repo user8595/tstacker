@@ -25,6 +25,10 @@ function gameLoop(dt)
 		iconEgg()
 	end
     
+	if isOptions then
+		optionsSelFunc(dt)
+	end
+
 	if isPaused == false then
 		gameTime(dt)
 	elseif isPaused then

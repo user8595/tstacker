@@ -19,10 +19,9 @@ boardPosX = 0
 boardPosY = 0
 
 -- window width variable
-wWidth = love.graphics.getWidth()
+wWidth = 640
 -- window height variable
-wHeight = love.graphics.getHeight()
-
+wHeight = 480
 -- text selection background
 textSelect = 1
 menuSelectY = 55
@@ -55,37 +54,37 @@ licenseCol = { 0.5, 0.5, 0.5 }
 
 board = {
 	-- vertical lines
-	l1x = wWidth / 2 - 84 + boardPosX,
-	l1y = wHeight / 2 - 173 + boardPosY,
-	l2x = wWidth / 2 - 84 + boardPosX,
-	l2y = wHeight / 2 + 187 + boardPosY,
+	l1x =  320 - 84 + boardPosX,
+	l1y = 240 - 173 + boardPosY,
+	l2x =  320 - 84 + boardPosX,
+	l2y = 240 + 187 + boardPosY,
 	-- horizontal lines
-	l3x = wWidth / 2 - 84 + boardPosX,
-	l3y = wHeight / 2 - 173 + boardPosY,
-	l4x = wWidth / 2 + 96 + boardPosX,
-	l4y = wHeight / 2 - 173 + boardPosY,
+	l3x =  320 - 84 + boardPosX,
+	l3y = 240 - 173 + boardPosY,
+	l4x =  320 + 96 + boardPosX,
+	l4y = 240 - 173 + boardPosY,
 
 	-- next queue
-	nx = wWidth / 2 + 120 + boardPosX,
-	ny = wHeight / 2 - 155 + boardPosY,
+	nx =  320 + 120 + boardPosX,
+	ny = 240 - 155 + boardPosY,
 	nw = 80,
 	nh = 45 * nextCount,
 
 	-- next queue text frame
-	n1x = wWidth / 2 + 120 + boardPosX,
-	n1y = wHeight / 2 - 173 + boardPosY,
+	n1x =  320 + 120 + boardPosX,
+	n1y = 240 - 173 + boardPosY,
 	n1w = 80,
 	n1h = 20,
 
 	-- hold queue
-	hx = wWidth / 2 - 188 + boardPosX,
-	hy = wHeight / 2 - 155 + boardPosY,
+	hx =  320 - 188 + boardPosX,
+	hy = 240 - 155 + boardPosY,
 	hw = 80,
 	hh = 45,
 
 	-- hold queue text frame
-	h1x = wWidth / 2 - 188 + boardPosX,
-	h1y = wHeight / 2 - 173 + boardPosY,
+	h1x =  320 - 188 + boardPosX,
+	h1y = 240 - 173 + boardPosY,
 	h1w = 80,
 	h1h = 20,
 

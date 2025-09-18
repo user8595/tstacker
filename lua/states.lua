@@ -5,7 +5,7 @@ function states()
 	if state == "title" then
 		title()
 		version()
-	elseif state == "menu" then
+	elseif state == "menu" and isOptions == false then
 		menuSelect()
 		menu()
 		menuTip()
@@ -40,6 +40,8 @@ end
 function popupStates()
 	if isOptions then
 		options()
+		optionsHover()
+		optionsTip()
 	elseif isAbout and isLicense == false then
 		about()
 		licenseButton()

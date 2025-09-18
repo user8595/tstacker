@@ -3,6 +3,7 @@ require("lua.menu")
 require("lua.content")
 require("lua.states")
 require("lua.game")
+require("lua.options")
 require("lua.string")
 require("lua.ui")
 
@@ -15,11 +16,12 @@ function love.load()
   gameEffect()
 end
 
-function love.keypressed(key, isrepeat)
-  inputMenu(key, isrepeat)
-  tSMenu(key, isrepeat)
-  menuSelectKey(key, isrepeat)
-  pauseKey(key, isrepeat)
+function love.keypressed(key)
+  inputMenu(key)
+  tSMenu(key)
+  menuSelectKey(key)
+  optionsSelect(key)
+  pauseKey(key)
 end
 
 function love.mousepressed(x, y, button)

@@ -32,7 +32,7 @@ function gameTime(dt)
 	end
 end
 
-function pauseKey(key, isrepeat)
+function pauseKey(key)
 	if key == "escape" and state == "game" and isPaused == false then
 		isPaused = true
 		textSelect = 1

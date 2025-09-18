@@ -2,8 +2,8 @@ local cron = require("lib.cron")
 require("lua.textures")
 
 -- pause screen button
-local pauseX = wWidth / 2 - 54
-local pauseY = wHeight / 2 - 50
+local pauseX =  320 - 54
+local pauseY = 240 - 50
 
 iconAbout = icoEasterEgg[1]
 
@@ -31,27 +31,27 @@ function title()
 	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
 	love.graphics.setColor(uiText)
 	love.graphics.draw(logo, board.l1x - 125, board.l1y + 40)
-	love.graphics.print({ titleText, "Press Enter" }, monogram, wWidth / 2 - 36, wHeight / 2 + 100)
+	love.graphics.print({ titleText, "Press Enter" }, monogram,  320 - 36, 240 + 100)
 end
 
 function menu()
 	love.graphics.setColor(0.25, 0.25, 0.25, 0.25)
-	love.graphics.rectangle("fill", board.l1x, wHeight / 2 - menuTextY, board.w, 24)
+	love.graphics.rectangle("fill", board.l1x, 240 - menuTextY, board.w, 24)
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Main Menu", monogramL, board.l1x, wHeight / 2 - menuTextY, board.w, "center")
+	love.graphics.printf("Main Menu", monogramL, board.l1x, 240 - menuTextY, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Play", largeText, board.l1x, wHeight / 2 - 55, board.w, "center")
+	love.graphics.printf("Play", largeText, board.l1x, 240 - 55, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Options", largeText, board.l1x, wHeight / 2 - 25, board.w, "center")
+	love.graphics.printf("Options", largeText, board.l1x, 240 - 25, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("About", largeText, board.l1x, wHeight / 2 + 5, board.w, "center")
+	love.graphics.printf("About", largeText, board.l1x, 240 + 5, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Exit", largeText, board.l1x, wHeight / 2 + 35, board.w, "center")
+	love.graphics.printf("Exit", largeText, board.l1x, 240 + 35, board.w, "center")
 end
 
 function menuSelect()
 	love.graphics.setColor(buttonCol)
-	love.graphics.rectangle("fill", board.l1x, wHeight / 2 - menuSelectY, board.w, 27)
+	love.graphics.rectangle("fill", board.l1x, 240 - menuSelectY, board.w, 27)
 end
 
 function menuTip()
@@ -59,18 +59,6 @@ function menuTip()
     -- stylua: ignore start
     love.graphics.printf(keybinds.up:gsub("^%l", string.upper) .. "/" .. keybinds.down:gsub("^%l", string.upper) .. ": Select\nEnter: Confirm", monogram, board.l1x, wHeight - 46, board.w, "center")
 	-- stylua: ignore end
-end
-
-function options()
-	love.graphics.setColor(popupOverlay)
-	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
-	love.graphics.setColor(popupCol)
-	love.graphics.rectangle("fill", wWidth / 2 - 190, wHeight / 2 - 165, 400, 340)
-	love.graphics.setColor(colour.border)
-	love.graphics.rectangle("line", wWidth / 2 - 190, wHeight / 2 - 165, 400, 340)
-	love.graphics.setColor(uiText)
-	love.graphics.print("Options", largeText, wWidth / 2 - 170, wHeight / 2 - 150)
-
 end
 
 function about()
@@ -85,10 +73,16 @@ function about()
 end
 
 function licenseButton()
+	local showText = "show"
+	if isLicense then
+		showText = "hide"
+	else
+		showText = "show"
+	end
 	love.graphics.setColor(licenseCol)
 	love.graphics.print("Licensed under the\nMIT License.", monogram, board.l1x - 200, board.l1y + 340)
 	love.graphics.setColor(0.5, 0.5, 0.5)
-	love.graphics.print("Click text above to show full license", smallText, board.l1x - 200, board.l1y + 380)
+	love.graphics.print("Click text above to " .. showText .. " full license", smallText, board.l1x - 200, board.l1y + 380)
 end
 
 function license()
@@ -100,17 +94,17 @@ end
 
 function modes()
 	love.graphics.setColor(0.25, 0.25, 0.25, 0.25)
-	love.graphics.rectangle("fill", board.l1x, wHeight / 2 - menuTextY, board.w, 24)
+	love.graphics.rectangle("fill", board.l1x, 240 - menuTextY, board.w, 24)
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Select Mode", monogramL, board.l1x, wHeight / 2 - menuTextY, board.w, "center")
+	love.graphics.printf("Select Mode", monogramL, board.l1x, 240 - menuTextY, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Marathon", largeText, board.l1x, wHeight / 2 - 95, board.w, "center")
+	love.graphics.printf("Marathon", largeText, board.l1x, 240 - 95, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Sprint", largeText, board.l1x, wHeight / 2 - 65, board.w, "center")
+	love.graphics.printf("Sprint", largeText, board.l1x, 240 - 65, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Ultra", largeText, board.l1x, wHeight / 2 - 35, board.w, "center")
+	love.graphics.printf("Ultra", largeText, board.l1x, 240 - 35, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Practice", largeText, board.l1x, wHeight / 2 - 5, board.w, "center")
+	love.graphics.printf("Practice", largeText, board.l1x, 240 - 5, board.w, "center")
 end
 
 function pauseScreen()
@@ -126,7 +120,7 @@ function pauseScreen()
 end
 
 function pauseSelect()
-	-- prevents highlighter from being rendered infront of the text by drawing the highlighter first
+	-- prevents highlighter from being rendered in front of the text by drawing the highlighter first
 	-- which means we need to put the overlay in this highlight function, so that it's drawn first, then the pause screen itself
 	love.graphics.setColor(popupOverlay)
 	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)

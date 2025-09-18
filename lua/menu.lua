@@ -89,9 +89,9 @@ local boxY = 90
 function exitPopup(dt)
 	if exitInput == 1 then
 		love.graphics.setColor(exitColor)
-		love.graphics.rectangle("fill", wWidth / 2 - 84, wHeight - boxY, 180, 30)
+		love.graphics.rectangle("fill",  320 - 84, wHeight - boxY, 180, 30)
 		love.graphics.setColor(exitText)
-		love.graphics.printf("Press ESC to quit", monogramL, wWidth / 2 - 84, wHeight - boxY + 5, 180, "center")
+		love.graphics.printf("Press ESC to quit", monogramL,  320 - 84, wHeight - boxY + 5, 180, "center")
 	elseif exitInput == 2 then
 		love.event.quit(0)
 	else
@@ -116,7 +116,7 @@ function menuTextEffect(dt)
 	end
 end
 
-function inputMenu(key, isrepeat)
+function inputMenu(key)
 	if key == "escape" and state == "title" then
 		exitInput = exitInput + 1
 	elseif key == "escape" and state == "menu" and isAbout == false and isOptions == false then
@@ -166,7 +166,7 @@ function inputMenu(key, isrepeat)
 	-- end
 end
 
-function menuSelectKey(key, isrepeat)
+function menuSelectKey(key)
 	if key == keybinds.down and state == "menu" and isAbout == false and isOptions == false or
 		key == keybinds.down and state == "mode"
 	then
@@ -209,7 +209,7 @@ function menuEffect(dt)
 end
 
 -- title select menu
-function tSMenu(key, isrepeat)
+function tSMenu(key)
 	if key == "return" and state == "title" then
 		state = "menu"
 		exitInput = 0
