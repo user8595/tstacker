@@ -2,8 +2,8 @@ local cron = require("lib.cron")
 require("lua.textures")
 
 -- pause screen button
-local pauseX =  320 - 54
-local pauseY = 240 - 50
+local pauseX =  wWidth / 2 - 54
+local pauseY = wHeight / 2 - 50
 
 iconAbout = icoEasterEgg[1]
 
@@ -31,27 +31,27 @@ function title()
 	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
 	love.graphics.setColor(uiText)
 	love.graphics.draw(logo, board.l1x - 125, board.l1y + 40)
-	love.graphics.print({ titleText, "Press Enter" }, monogram,  320 - 36, 240 + 100)
+	love.graphics.print({ titleText, "Press Enter" }, monogram,  wWidth / 2 - 36, wHeight / 2 + 100)
 end
 
 function menu()
 	love.graphics.setColor(0.25, 0.25, 0.25, 0.25)
-	love.graphics.rectangle("fill", board.l1x, 240 - menuTextY, board.w, 24)
+	love.graphics.rectangle("fill", board.l1x, wHeight / 2 - menuTextY, board.w, 24)
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Main Menu", monogramL, board.l1x, 240 - menuTextY, board.w, "center")
+	love.graphics.printf("Main Menu", monogramL, board.l1x, wHeight / 2 - menuTextY, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Play", largeText, board.l1x, 240 - 55, board.w, "center")
+	love.graphics.printf("Play", largeText, board.l1x, wHeight / 2 - 55, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Options", largeText, board.l1x, 240 - 25, board.w, "center")
+	love.graphics.printf("Options", largeText, board.l1x, wHeight / 2 - 25, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("About", largeText, board.l1x, 240 + 5, board.w, "center")
+	love.graphics.printf("About", largeText, board.l1x, wHeight / 2 + 5, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Exit", largeText, board.l1x, 240 + 35, board.w, "center")
+	love.graphics.printf("Exit", largeText, board.l1x, wHeight / 2 + 35, board.w, "center")
 end
 
 function menuSelect()
 	love.graphics.setColor(buttonCol)
-	love.graphics.rectangle("fill", board.l1x, 240 - menuSelectY, board.w, 27)
+	love.graphics.rectangle("fill", board.l1x, wHeight / 2 - menuSelectY, board.w, 27)
 end
 
 function menuTip()
@@ -94,17 +94,17 @@ end
 
 function modes()
 	love.graphics.setColor(0.25, 0.25, 0.25, 0.25)
-	love.graphics.rectangle("fill", board.l1x, 240 - menuTextY, board.w, 24)
+	love.graphics.rectangle("fill", board.l1x, wHeight / 2 - menuTextY, board.w, 24)
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Select Mode", monogramL, board.l1x, 240 - menuTextY, board.w, "center")
+	love.graphics.printf("Select Mode", monogramL, board.l1x, wHeight / 2 - menuTextY, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Marathon", largeText, board.l1x, 240 - 95, board.w, "center")
+	love.graphics.printf("Marathon", largeText, board.l1x, wHeight / 2 - 95, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Sprint", largeText, board.l1x, 240 - 65, board.w, "center")
+	love.graphics.printf("Sprint", largeText, board.l1x, wHeight / 2 - 65, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Ultra", largeText, board.l1x, 240 - 35, board.w, "center")
+	love.graphics.printf("Ultra", largeText, board.l1x, wHeight / 2 - 35, board.w, "center")
 	love.graphics.setColor(uiText)
-	love.graphics.printf("Practice", largeText, board.l1x, 240 - 5, board.w, "center")
+	love.graphics.printf("Practice", largeText, board.l1x, wHeight / 2 - 5, board.w, "center")
 end
 
 function pauseScreen()

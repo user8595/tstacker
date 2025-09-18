@@ -89,9 +89,9 @@ local boxY = 90
 function exitPopup(dt)
 	if exitInput == 1 then
 		love.graphics.setColor(exitColor)
-		love.graphics.rectangle("fill",  320 - 84, wHeight - boxY, 180, 30)
+		love.graphics.rectangle("fill",  wWidth / 2 - 84, wHeight - boxY, 180, 30)
 		love.graphics.setColor(exitText)
-		love.graphics.printf("Press ESC to quit", monogramL,  320 - 84, wHeight - boxY + 5, 180, "center")
+		love.graphics.printf("Press ESC to quit", monogramL,  wWidth / 2 - 84, wHeight - boxY + 5, 180, "center")
 	elseif exitInput == 2 then
 		love.event.quit(0)
 	else

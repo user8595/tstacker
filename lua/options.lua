@@ -1,5 +1,5 @@
 -- popup width and height
-local popX, popY =  320 - 190, 240 - 165
+local popX, popY = wWidth / 2 - 190, wHeight / 2 - 165
 -- tabbar text colour variables
 local opt1, opt2, opt3
 -- tab option text colours
