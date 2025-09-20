@@ -135,6 +135,8 @@ function inputMenu(key)
 		isOptions = false
 		tabSel = 1
 		tabSelX = 0
+		optSel = 1
+		optSelY = 0
 	elseif key == "escape" and state == "menu" and isAbout then
 		isAbout = false
 		isLicense = false

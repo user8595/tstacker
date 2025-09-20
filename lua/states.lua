@@ -40,6 +40,7 @@ end
 function popupStates()
 	if isOptions then
 		options()
+		settingsUI()
 		optionsHover()
 		optionsTip()
 	elseif isAbout and isLicense == false then
