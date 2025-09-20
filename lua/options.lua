@@ -12,9 +12,9 @@ tabSel = 1
 tabSelX = 0
 
 -- selected option boolean
-local isOptionSelect = false
+isOptionSelect = false
 -- input config option boolean
-local isOptionInput = false
+isOptionInput = false
 
 local keyText = ""
 
@@ -27,9 +27,7 @@ optSelY = 0
 local optCol = {0.2, 0.2, 0.2, 0.5}
 
 -- settings text colours
-local textCols = {
-	1, 1, 1
-}
+local textCols = {1, 1, 1}
 
 -- options menu item texts
 -- left text
@@ -101,11 +99,33 @@ function controlsUI()
 	printLeft("Hold", 7)
 	printRight(keybinds.hold:gsub("^%l", string.upper), 7)
 
-	controlsDialog()
+	if isOptionInput then
+		textCols = {0.5, 0.5, 0.5}
+		inputDialog()
+	else
+		textCols = {1, 1, 1}
+	end
 end
 
 function styleUI()
 	printLeft("-- TODO: Finish style screen", 1)
+end
+
+
+function optionsTip()
+	love.graphics.setColor(0.5, 0.5, 0.5)
+	-- stylua: ignore start
+	love.graphics.printf("Up/Down: Select          Left/Right: Change Tabs \nEnter: Adjust", monogram, popX, wHeight - 60, 400, "center")
+	-- stylua: ignore end
+end
+
+
+-- TODO: FInish input config
+function inputDialog()
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.rectangle("fill", popX + 40, popY + 280, 320, 25)
+	love.graphics.setColor(0, 0, 0)
+	love.graphics.printf("Press any key for " .. keyText, monogram, popX + 40, popY + 280, 320, "center")
 end
 
 function settingsUI()
@@ -117,20 +137,6 @@ function settingsUI()
 		styleUI()
 	else
 	end
-end
-
-function optionsTip()
-	love.graphics.setColor(0.5, 0.5, 0.5)
-	-- stylua: ignore start
-	love.graphics.printf("Up/Down: Select          Left/Right: Change Tabs \nEnter: Adjust", monogram, popX, wHeight - 60, 400, "center")
-	-- stylua: ignore end
-end
-
--- TODO: FInish input config
-function controlsDialog()
-love.graphics.rectangle("fill", popX + 40, popY + 280, 320, 25)
-	love.graphics.setColor(0, 0, 0)
-	love.graphics.printf("Press any key for " .. keyText, monogram, popX + 40, popY + 280, 320, "center")
 end
 
 function optionsHover()
@@ -145,13 +151,13 @@ end
 
 function optionsSelect(key)
 	-- current tab selection
-	if key == "left" and isOptions and isOptionSelect == false or key == keybinds.left and isOptions and isOptionSelect == false then
+	if key == "left" and isOptions and isOptionSelect == false and isOptionInput == false or key == keybinds.left and isOptions and isOptionSelect == false and isOptionInput == false then
 		tabSel = tabSel - 1
 		tabSelX = tabSelX - (400 / 3)
 		-- reset highlighted options item position
 		optSel = 1
 		optSelY = 0
-	elseif key == "right" and isOptions and isOptionSelect == false or key == keybinds.right and isOptions and isOptionSelect == false then
+	elseif key == "right" and isOptions and isOptionSelect == false and isOptionInput == false or key == keybinds.right and isOptions and isOptionSelect == false and isOptionInput == false then
 		tabSel = tabSel + 1
 		tabSelX = tabSelX + (400 / 3)
 		optSel = 1
@@ -159,19 +165,63 @@ function optionsSelect(key)
 	end
 
 	-- current options entry selected
-	if key == "up" and isOptions and isOptionSelect == false or key == keybinds.up and isOptions and isOptionSelect == false then
+	if key == "up" and isOptions and isOptionSelect == false and isOptionInput == false or key == keybinds.up and isOptions and isOptionSelect == false and isOptionInput == false then
 		optSel = optSel - 1
 		optSelY = optSelY - 25
-	elseif key == "down" and isOptions and isOptionSelect == false or key == keybinds.down and isOptions and isOptionSelect == false then
+	elseif key == "down" and isOptions and isOptionSelect == false and isOptionInput == false or key == keybinds.down and isOptions and isOptionSelect == false and isOptionInput == false then
 		optSel = optSel + 1
 		optSelY = optSelY + 25
 	end
+	
+	if key == "return" and isOptionInput == false and tabSel == 2 and optSel == 1 then
+		isOptionInput = true
+		keyText = "Left"
+	elseif key == "return" and isOptionInput == false and tabSel == 2 and optSel == 2 then
+		isOptionInput = true
+		keyText = "Right"
+	elseif key == "return" and isOptionInput == false and tabSel == 2 and optSel == 3 then
+		isOptionInput = true
+		keyText = "Hard Drop"
+	elseif key == "return" and isOptionInput == false and tabSel == 2 and optSel == 4 then
+		isOptionInput = true
+		keyText = "Soft Drop"
+	elseif key == "return" and isOptionInput == false and tabSel == 2 and optSel == 5 then
+		isOptionInput = true
+		keyText = "Counter Clockwise"
+	elseif key == "return" and isOptionInput == false and tabSel == 2 and optSel == 6 then
+		isOptionInput = true
+		keyText = "Clockwise"
+	elseif key == "return" and isOptionInput == false and tabSel == 2 and optSel == 7 then
+		isOptionInput = true
+		keyText = "Hold"
+	elseif key == "escape" and isOptionInput then
+		isOptionInput = false
+		keyText = ""
+	end
 end
 
--- TODO: Finish input config
 function optionInputConfig(key)
-	if key == "return" and isOptionInput == false then
-		isOptionInput = true
+	if key ~= "escape" and key ~= "return" and isOptionInput and optSel == 1 then
+		keybinds.left = key
+		isOptionInput = false
+	elseif key ~= "escape" and key ~= "return" and isOptionInput and optSel == 2 then
+		keybinds.right = key
+		isOptionInput = false
+	elseif key ~= "escape" and key ~= "return" and isOptionInput and optSel == 3 then
+		keybinds.up = key
+		isOptionInput = false
+	elseif key ~= "escape" and key ~= "return" and isOptionInput and optSel == 4 then
+		keybinds.down = key
+		isOptionInput = false
+	elseif key ~= "escape" and key ~= "return" and isOptionInput and optSel == 5 then
+		keybinds.cc = key
+		isOptionInput = false
+	elseif key ~= "escape" and key ~= "return" and isOptionInput and optSel == 6 then
+		keybinds.c = key
+		isOptionInput = false
+	elseif key ~= "escape" and key ~= "return" and isOptionInput and optSel == 7 then
+		keybinds.hold = key
+		isOptionInput = false
 	end
 end
 
@@ -184,7 +234,7 @@ function optionsSelFunc(dt)
 		tabSel = 3
 		tabSelX = 0 + (400 / 3) * 2
 	end
-
+	
 	-- current highlighted options tab
 	if tabSel == 1 then
 		tab1, tab2, tab3 = tabCol, colour.border, colour.border
@@ -217,4 +267,5 @@ function optionsSelFunc(dt)
 		optSel = 1
 		optSelY = 0
 	end
+
 end

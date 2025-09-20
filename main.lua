@@ -21,6 +21,7 @@ function love.keypressed(key)
   tSMenu(key)
   menuSelectKey(key)
   optionsSelect(key)
+  optionInputConfig(key)
   pauseKey(key)
 end
 

@@ -131,7 +131,7 @@ function inputMenu(key)
 		state = "title"
 		selectReset()
 		menuReset()
-	elseif key == "escape" and state == "menu" and isOptions then
+	elseif key == "escape" and state == "menu" and isOptions and isOptionInput == false and isOptionSelect == false then
 		isOptions = false
 		tabSel = 1
 		tabSelX = 0
