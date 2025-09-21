@@ -126,6 +126,8 @@ function inputDialog()
 	love.graphics.rectangle("fill", popX + 40, popY + 280, 320, 25)
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.printf("Press any key for " .. keyText, monogram, popX + 40, popY + 280, 320, "center")
+	love.graphics.setColor(uiText)
+	love.graphics.printf("ESC To cancel", monogram, popX + 40, popY + 310, 320, "center")
 end
 
 function settingsUI()
