@@ -17,7 +17,7 @@ function states()
 		menuSelect()
 		menuTip()
 		modes()
-	elseif state == "game"and isPaused == false then
+	elseif state == "game" and isPaused == false then
 		game()
 	end
 

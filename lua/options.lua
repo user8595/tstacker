@@ -15,6 +15,8 @@ tabSelX = 0
 isOptionSelect = false
 -- input config option boolean
 isOptionInput = false
+-- change colour dialogue
+isOptionColour = false
 
 local keyText = ""
 
@@ -23,8 +25,13 @@ optSel = 1
 -- current highlight position
 optSelY = 0
 
+-- for style menu
+optSelStyle = 1
+-- options menu style offset
+styleOffsetY = 0
+
 -- option highlight column colour
-local optCol = {0.2, 0.2, 0.2, 0.5}
+optCol = {0.2, 0.2, 0.2, 0.5}
 
 -- settings text colours
 local textCols = {1, 1, 1}
@@ -32,6 +39,11 @@ local textCols = {1, 1, 1}
 -- options menu item texts
 -- left text
 local offsetY = 80
+local function optionsHeader(str)
+	love.graphics.setColor(0.35, 0.35, 0.35)
+	love.graphics.print(str, monogramL, popX + 17, popY + offsetY)
+end
+
 local function printLeft(str, pos)
 	love.graphics.setColor(textCols)
 	if pos == 1 then
@@ -40,6 +52,17 @@ local function printLeft(str, pos)
 		love.graphics.print(str, monogramL, popX + 17, popY + offsetY + 25)
 	else
 		love.graphics.print(str, monogramL, popX + 17, popY + offsetY + 25 * (pos - 1))
+	end
+end
+
+local function printLeftStyle(str, pos)
+	love.graphics.setColor(textCols)
+	if pos == 1 then
+		love.graphics.print(str, monogramL, popX + 17, popY + offsetY + 25)
+	elseif pos == 2 then
+		love.graphics.print(str, monogramL, popX + 17, popY + offsetY + 25 * 2)
+	else
+		love.graphics.print(str, monogramL, popX + 17, popY + offsetY + 25 * pos)
 	end
 end
 
@@ -108,9 +131,63 @@ function controlsUI()
 end
 
 function styleUI()
-	printLeft("-- TODO: Finish style screen", 1)
-end
+	local swatchY = popY + offsetY + 3
 
+	optionsHeader("Colours")
+	printLeftStyle("Board Background", 1)
+	love.graphics.setColor(colour.bg)
+	love.graphics.rectangle("fill", popX + 365, swatchY + 25, 18, 18)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.rectangle("line", popX + 365, swatchY + 25, 18, 18)
+
+	printLeftStyle("Border", 2)
+	love.graphics.setColor(colour.border)
+	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 2, 18, 18)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 2, 18, 18)
+
+	printLeftStyle("Top Border", 3)
+	love.graphics.setColor(colour.top)
+	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 3, 18, 18)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 3, 18, 18)
+
+	printLeftStyle("Grid", 4)
+	love.graphics.setColor(colour.grid)
+	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 4, 18, 18)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 4, 18, 18)
+
+	printLeftStyle("Next Queue", 5)
+	love.graphics.setColor(colour.queue)
+	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 5, 18, 18)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 5, 18, 18)
+
+	printLeftStyle("Game Text", 6)
+	love.graphics.setColor(colour.text)
+	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 6, 18, 18)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 6, 18, 18)
+
+	printLeftStyle("Menu Text", 7)
+	love.graphics.setColor(uiText)
+	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 7, 18, 18)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 7, 18, 18)
+
+	printLeftStyle("Input Overlay", 8)
+	love.graphics.setColor(keybinds.colour)
+	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 8, 18, 18)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 8, 18, 18)
+
+	printLeftStyle("Game Background", 9)
+	love.graphics.setColor(bgCol)
+	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 9, 18, 18)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 9, 18, 18)
+end
 
 function optionsTip()
 	love.graphics.setColor(0.5, 0.5, 0.5)
@@ -119,8 +196,6 @@ function optionsTip()
 	-- stylua: ignore end
 end
 
-
--- TODO: FInish input config
 function inputDialog()
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.rectangle("fill", popX + 40, popY + 280, 320, 25)
@@ -128,6 +203,12 @@ function inputDialog()
 	love.graphics.printf("Press any key for " .. keyText, monogram, popX + 40, popY + 280, 320, "center")
 	love.graphics.setColor(uiText)
 	love.graphics.printf("ESC To cancel", monogram, popX + 40, popY + 310, 320, "center")
+end
+
+--TODO: Finish colour change dialog functionality
+function colourDialog()
+	love.graphics.setColour(0, 0, 0)
+	love.graphics.rectangle("fill", popX + 40, popY + 280, 320, 25)
 end
 
 function settingsUI()
@@ -142,13 +223,22 @@ function settingsUI()
 end
 
 function optionsHover()
+	-- current options tab highlight
 	love.graphics.setColor(colour.border)
 	love.graphics.line(popX, popY + 70, popX + 400, popY + 70)
 	love.graphics.setColor(tabCol)
 	love.graphics.line(popX + tabSelX, popY + 70, popX + 400 / 3 + tabSelX , popY + 70)
-
+	
+	-- options select highlight
 	love.graphics.setColor(optCol)
-	love.graphics.rectangle("fill", popX + 10, popY + offsetY + optSelY, popW - 20, 25)
+	love.graphics.rectangle("fill", popX + 10, popY + offsetY + optSelY + styleOffsetY, popW - 20, 25)
+	
+	-- moves highlighter downwards if in the style tab
+	if tabSel == 3 then
+		styleOffsetY = 25
+	else
+		styleOffsetY = 0
+	end
 end
 
 function optionsSelect(key)
@@ -159,19 +249,29 @@ function optionsSelect(key)
 		-- reset highlighted options item position
 		optSel = 1
 		optSelY = 0
+		optSelStyle = 1
 	elseif key == "right" and isOptions and isOptionSelect == false and isOptionInput == false or key == keybinds.right and isOptions and isOptionSelect == false and isOptionInput == false then
 		tabSel = tabSel + 1
 		tabSelX = tabSelX + (400 / 3)
-		optSel = 1
 		optSelY = 0
+		optSel = 1
+		optSelStyle = 1
 	end
-
+	
 	-- current options entry selected
-	if key == "up" and isOptions and isOptionSelect == false and isOptionInput == false or key == keybinds.up and isOptions and isOptionSelect == false and isOptionInput == false then
+	if key == "up" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 or key == keybinds.up and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 then
 		optSel = optSel - 1
 		optSelY = optSelY - 25
-	elseif key == "down" and isOptions and isOptionSelect == false and isOptionInput == false or key == keybinds.down and isOptions and isOptionSelect == false and isOptionInput == false then
+	elseif key == "down" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 or key == keybinds.down and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 then
 		optSel = optSel + 1
+		optSelY = optSelY + 25
+	end
+
+	if key == "up" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 or key == keybinds.up and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 then
+		optSelStyle = optSelStyle - 1
+		optSelY = optSelY - 25
+	elseif key == "down" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 or key == keybinds.down and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 then
+		optSelStyle = optSelStyle + 1
 		optSelY = optSelY + 25
 	end
 	
@@ -255,19 +355,19 @@ function optionsSelFunc(dt)
 	elseif optSel < 1 and tabSel == 1 then
 		optSel = 1
 		optSelY = 0
+	-- input screen
 	elseif optSel > 7 and tabSel == 2 then
 		optSel = 1
 		optSelY = 0
 	elseif optSel < 1 and tabSel == 2 then
 		optSel = 7
 		optSelY = 25 * 6
-	-- NOTE: placeholders
-	elseif optSel > 1 and tabSel == 3 then
-		optSel = 1
+	-- style screen
+	elseif optSelStyle > 9 and tabSel == 3 then
+		optSelStyle = 1
 		optSelY = 0
-	elseif optSel < 1 and tabSel == 3 then
-		optSel = 1
-		optSelY = 0
+	elseif optSelStyle < 1 and tabSel == 3 then
+		optSelStyle = 9
+		optSelY = 25 * 8
 	end
-
 end

@@ -44,7 +44,7 @@ bgCol = {
 
 -- menu colors
 titleText = { 1, 1, 1, 1 }
-uiText = { 1, 1, 1, 1 }
+uiText =  { 1, 1, 1 }
 buttonCol = { 0.3, 0.3, 0.3, 0.5 }
 popupCol = { 0, 0, 0 }
 popupOverlay = { 0, 0, 0, 0.5 }

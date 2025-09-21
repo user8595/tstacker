@@ -29,9 +29,16 @@ end
 function title()
 	love.graphics.setColor(popupOverlay)
 	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
-	love.graphics.setColor(uiText)
+	love.graphics.setColor(1, 1, 1)
 	love.graphics.draw(logo, board.l1x - 125, board.l1y + 40)
+	love.graphics.setColor(uiText)
 	love.graphics.print({ titleText, "Press Enter" }, monogram,  wWidth / 2 - 36, wHeight / 2 + 100)
+end
+
+local function boardBG()
+	-- board background
+	love.graphics.setColor(colour.bg)
+	love.graphics.rectangle("fill", board.l1x, board.l1y, board.w, board.h)
 end
 
 function menu()
@@ -50,6 +57,7 @@ function menu()
 end
 
 function menuSelect()
+	boardBG()
 	love.graphics.setColor(buttonCol)
 	love.graphics.rectangle("fill", board.l1x, wHeight / 2 - menuSelectY, board.w, 27)
 end
@@ -165,10 +173,7 @@ function boardUI()
 end
 
 function grid()
-	-- board background
-	love.graphics.setColor(colour.bg)
-	love.graphics.rectangle("fill", board.l1x, board.l1y, board.w, board.h)
-
+	boardBG()
 	-- board grid
 	love.graphics.setColor(colour.grid)
 	-- vertical lines

@@ -137,6 +137,7 @@ function inputMenu(key)
 		tabSelX = 0
 		optSel = 1
 		optSelY = 0
+		optSelStyle = 1
 	elseif key == "escape" and state == "menu" and isAbout then
 		isAbout = false
 		isLicense = false
@@ -209,8 +210,10 @@ function menuEffect(dt)
 		bt = bt + dt
 		if bt > 0 and bt <= 1 then
 			buttonCol[4] = buttonCol[4] - dt / 5.5
+			optCol[4] = optCol[4] - dt / 5.5
 		elseif bt >= 1 and bt < 2 then
 			buttonCol[4] = buttonCol[4] + dt / 5.5
+			optCol[4] = optCol[4] + dt / 5.5
 		elseif bt >= 2 then
 			bt = 0
 		end

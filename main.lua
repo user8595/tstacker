@@ -36,8 +36,8 @@ end
 
 function love.draw()
   gameContent()
-  -- love.graphics.print(textSelect, 30, 75)
-  -- love.graphics.print(pauseSelectY, 30, 90)
+  -- love.graphics.print(optSelStyle, 30, 75)
+  -- love.graphics.print(optSelY, 30, 90)
   -- love.graphics.print(love.mouse.getX() .. ", " .. love.mouse.getY(), monogram, 10, 160)
 end
 
