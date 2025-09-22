@@ -359,6 +359,8 @@ function optionsSelect(key)
 		isOptionInput = false
 		keyText = ""
 	elseif key == "escape" and isOptionColour then
+		colSel = 1
+		colSelY = 0
 		isOptionColour = false
 	end
 
