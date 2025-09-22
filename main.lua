@@ -36,8 +36,16 @@ end
 
 function love.draw()
   gameContent()
-  -- love.graphics.print(optSelStyle, 30, 75)
-  -- love.graphics.print(optSelY, 30, 90)
+
+  -- local txt
+  -- if isOptionColour then
+  --   txt = "true"
+  -- else
+  --   txt = "false"
+  -- end
+  -- love.graphics.print(colSel, 30, 75)
+  -- love.graphics.print(colSelY, 30, 90)
+  -- love.graphics.print(txt, 30, 120)
   -- love.graphics.print(love.mouse.getX() .. ", " .. love.mouse.getY(), monogram, 10, 160)
 end
 

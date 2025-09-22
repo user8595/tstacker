@@ -1,7 +1,7 @@
 require("lua.defaults")
 
 -- popup width and height
-local popX, popY, popW = wWidth / 2 - 190, wHeight / 2 - 165, 400
+local popX, popY, popW, popH = gWidth / 2 - 190, gHeight / 2 - 165, 400, 340
 -- tabbar text colour variables
 local tab1, tab2, tab3
 -- tab option text colours
@@ -30,20 +30,26 @@ optSelStyle = 1
 -- options menu style offset
 styleOffsetY = 0
 
+-- colour config highlighter
+colSel = 1
+-- position
+colSelY = 0
+
 -- option highlight column colour
 optCol = {0.2, 0.2, 0.2, 0.5}
 
 -- settings text colours
-local textCols = {1, 1, 1}
+textCols = {1, 1, 1}
 
 -- options menu item texts
--- left text
+-- header
 local offsetY = 80
 local function optionsHeader(str)
 	love.graphics.setColor(0.35, 0.35, 0.35)
 	love.graphics.print(str, monogramL, popX + 17, popY + offsetY)
 end
 
+-- left text
 local function printLeft(str, pos)
 	love.graphics.setColor(textCols)
 	if pos == 1 then
@@ -55,6 +61,7 @@ local function printLeft(str, pos)
 	end
 end
 
+-- left text, for starting in second column
 local function printLeftStyle(str, pos)
 	love.graphics.setColor(textCols)
 	if pos == 1 then
@@ -81,23 +88,23 @@ end
 -- options popup
 function options()
 	love.graphics.setColor(popupOverlay)
-	love.graphics.rectangle("fill", 0, 0, wWidth, wHeight)
+	love.graphics.rectangle("fill", 0, 0, gWidth, gHeight)
 	love.graphics.setColor(popupCol)
-	love.graphics.rectangle("fill", popX, popY, popW, 340)
+	love.graphics.rectangle("fill", popX, popY, popW, popH)
 	love.graphics.setColor(colour.border)
-	love.graphics.rectangle("line", popX, popY, popW, 340)
+	love.graphics.rectangle("line", popX, popY, popW, popH)
 	love.graphics.setColor(uiText)
 	love.graphics.print("Options", largeText, popX + 17, popY + 10)
 	love.graphics.setColor(tab1)
-	love.graphics.print("Handling", monogramL, popX + 32, popY + 44)
+	love.graphics.print("General", monogramL, popX + 35, popY + 45)
 	love.graphics.setColor(tab2)
 	love.graphics.print("Controls", monogramL, popX + 163, popY + 45)
 	love.graphics.setColor(tab3)
 	love.graphics.print("Style", monogramL, popX + 313, popY + 45)
 end
 
-function handlingUI()
-	printLeft("-- TODO: Finish handling screen", 1)
+function generalUI()
+	printLeft("-- TODO: Finish general screen", 1)
 end
 
 function controlsUI()
@@ -107,11 +114,11 @@ function controlsUI()
 	printLeft("Right", 2)
 	printRight(keybinds.right:gsub("^%l", string.upper), 2)
 
-	printLeft("Hard Drop", 3)
-	printRight(keybinds.up:gsub("^%l", string.upper), 3)
+	printLeft("Soft Drop", 3)
+	printRight(keybinds.sDrop:gsub("^%l", string.upper), 3)
 	
-	printLeft("Soft Drop", 4)
-	printRight(keybinds.down:gsub("^%l", string.upper), 4)
+	printLeft("Hard Drop", 4)
+	printRight(keybinds.hDrop:gsub("^%l", string.upper), 4)
 
 	printLeft("Counter Clockwise", 5)
 	printRight(keybinds.cc:gsub("^%l", string.upper), 5)
@@ -121,82 +128,78 @@ function controlsUI()
 
 	printLeft("Hold", 7)
 	printRight(keybinds.hold:gsub("^%l", string.upper), 7)
-
-	if isOptionInput then
-		textCols = {0.5, 0.5, 0.5}
-		inputDialog()
-	else
-		textCols = {1, 1, 1}
-	end
 end
 
 function styleUI()
 	local swatchY = popY + offsetY + 3
-
+	
 	optionsHeader("Colours")
 	printLeftStyle("Board Background", 1)
 	love.graphics.setColor(colour.bg)
 	love.graphics.rectangle("fill", popX + 365, swatchY + 25, 18, 18)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.rectangle("line", popX + 365, swatchY + 25, 18, 18)
-
+	
 	printLeftStyle("Border", 2)
 	love.graphics.setColor(colour.border)
 	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 2, 18, 18)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 2, 18, 18)
-
+	
 	printLeftStyle("Top Border", 3)
 	love.graphics.setColor(colour.top)
 	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 3, 18, 18)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 3, 18, 18)
-
+	
 	printLeftStyle("Grid", 4)
 	love.graphics.setColor(colour.grid)
 	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 4, 18, 18)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 4, 18, 18)
-
+	
 	printLeftStyle("Next Queue", 5)
 	love.graphics.setColor(colour.queue)
 	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 5, 18, 18)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 5, 18, 18)
-
-	printLeftStyle("Game Text", 6)
+	
+	printLeftStyle("Text", 6)
 	love.graphics.setColor(colour.text)
 	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 6, 18, 18)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 6, 18, 18)
-
-	printLeftStyle("Menu Text", 7)
-	love.graphics.setColor(uiText)
+	
+	printLeftStyle("Popup Background", 7)
+	love.graphics.setColor(popupCol)
 	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 7, 18, 18)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 7, 18, 18)
-
+	
 	printLeftStyle("Input Overlay", 8)
 	love.graphics.setColor(keybinds.colour)
 	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 8, 18, 18)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 8, 18, 18)
-
+	
 	printLeftStyle("Game Background", 9)
 	love.graphics.setColor(bgCol)
 	love.graphics.rectangle("fill", popX + 365, swatchY + 25 * 9, 18, 18)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.rectangle("line", popX + 365, swatchY + 25 * 9, 18, 18)
+	
 end
 
 function optionsTip()
 	love.graphics.setColor(0.5, 0.5, 0.5)
 	-- stylua: ignore start
-	love.graphics.printf("Up/Down: Select          Left/Right: Change Tabs \nEnter: Adjust", monogram, popX, wHeight - 60, 400, "center")
+	love.graphics.printf("Up/Down: Select          Left/Right: Change Tabs \nEnter: Adjust", monogram, popX, gHeight - 60, 400, "center")
 	-- stylua: ignore end
 end
 
 function inputDialog()
+	love.graphics.setColor(popupOverlay)
+	love.graphics.rectangle("fill", popX, popY, popW, popH)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.rectangle("fill", popX + 40, popY + 280, 320, 25)
 	love.graphics.setColor(0, 0, 0)
@@ -205,20 +208,52 @@ function inputDialog()
 	love.graphics.printf("ESC To cancel", monogram, popX + 40, popY + 310, 320, "center")
 end
 
---TODO: Finish colour change dialog functionality
 function colourDialog()
-	love.graphics.setColour(0, 0, 0)
-	love.graphics.rectangle("fill", popX + 40, popY + 280, 320, 25)
+	love.graphics.setColor(popupOverlay)
+	love.graphics.rectangle("fill", popX, popY, popW, popH)
+	love.graphics.setColor(popupCol)
+	love.graphics.rectangle("fill", popX + 105, popY + 127, 185, 105)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.rectangle("line", popX + 105, popY + 127, 185, 105)
+	
+	-- TODO: Replace with selected colour
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.rectangle("fill", popX + 104, popY + 97, 187, 23)
+	love.graphics.setColor(0, 0, 0)
+	love.graphics.printf("Adjust Colour", monogram, popX + 104, popY + 97, 187, "center")
+
+	love.graphics.setColor(colour.border)
+	love.graphics.rectangle("fill", popX + 124, popY + 143, 72, 72)
+	love.graphics.setColor(0.35, 0.35, 0.35)
+	love.graphics.print("Colour", monogramL, popX + 218, popY + 137)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.print({{1,0.5,0.5}, "R: ", {1,1,1}, "255"}, monogramL, popX + 218, popY + 157)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.print({{0.5,1,0.5}, "G: ", {1,1,1}, "255"}, monogramL, popX + 218, popY + 177)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.print({{0.5,0.5,1}, "B: ", {1,1,1}, "255"}, monogramL, popX + 218, popY + 197)
 end
 
 function settingsUI()
 	if tabSel == 1 and isOptions then
-		handlingUI()
+		generalUI()
 	elseif tabSel == 2 and isOptions then
 		controlsUI()
 	elseif tabSel == 3 and isOptions then
 		styleUI()
 	else
+	end
+end
+
+function optionStates()
+	if isOptionInput then
+		textCols = {0.5, 0.5, 0.5}
+		inputDialog()
+	elseif isOptionColour then
+		textCols = {0.5, 0.5, 0.5}
+		colourDialog()
+	else
+		textCols = {1, 1, 1}
 	end
 end
 
@@ -241,16 +276,27 @@ function optionsHover()
 	end
 end
 
+function colourHighlight()
+	-- colour config highlighter
+	if isOptionColour then
+		love.graphics.setColor(optCol)
+		love.graphics.rectangle("fill", popX + 210, popY + 157 + colSelY, 75, 20)
+	else
+	end
+end
+
 function optionsSelect(key)
 	-- current tab selection
-	if key == "left" and isOptions and isOptionSelect == false and isOptionInput == false or key == keybinds.left and isOptions and isOptionSelect == false and isOptionInput == false then
+	if key == "left" and isOptions and isOptionSelect == false and isOptionInput == false and isOptionColour == false or
+	key == keybinds.left and isOptions and isOptionSelect == false and isOptionInput == false and isOptionColour == false then
 		tabSel = tabSel - 1
 		tabSelX = tabSelX - (400 / 3)
 		-- reset highlighted options item position
 		optSel = 1
 		optSelY = 0
 		optSelStyle = 1
-	elseif key == "right" and isOptions and isOptionSelect == false and isOptionInput == false or key == keybinds.right and isOptions and isOptionSelect == false and isOptionInput == false then
+	elseif key == "right" and isOptions and isOptionSelect == false and isOptionInput == false and isOptionColour == false or
+	key == keybinds.right and isOptions and isOptionSelect == false and isOptionInput == false and isOptionColour == false then
 		tabSel = tabSel + 1
 		tabSelX = tabSelX + (400 / 3)
 		optSelY = 0
@@ -259,22 +305,35 @@ function optionsSelect(key)
 	end
 	
 	-- current options entry selected
-	if key == "up" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 or key == keybinds.up and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 then
+	if key == "up" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 and isOptionColour == false or
+	key == keybinds.up and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 and isOptionColour == false then
 		optSel = optSel - 1
 		optSelY = optSelY - 25
-	elseif key == "down" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 or key == keybinds.down and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 then
+	elseif key == "down" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 and isOptionColour == false
+	or key == keybinds.down and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 and isOptionColour == false then
 		optSel = optSel + 1
 		optSelY = optSelY + 25
 	end
 
-	if key == "up" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 or key == keybinds.up and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 then
+	if key == "up" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 and isOptionColour == false
+	or key == keybinds.up and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 and isOptionColour == false then
 		optSelStyle = optSelStyle - 1
 		optSelY = optSelY - 25
-	elseif key == "down" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 or key == keybinds.down and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 then
+	elseif key == "down" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 and isOptionColour == false
+	or key == keybinds.down and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 and isOptionColour == false then
 		optSelStyle = optSelStyle + 1
 		optSelY = optSelY + 25
 	end
-	
+
+	if key == "up" and isOptionColour or key == keybinds.up and isOptionColour then
+		colSel = colSel - 1
+		colSelY = colSelY - 20
+	elseif key == "down" and isOptionColour or key == keybinds.down and isOptionColour then
+		colSel = colSel + 1
+		colSelY = colSelY + 20
+	end
+
+
 	if key == "return" and isOptionInput == false and tabSel == 2 and optSel == 1 then
 		isOptionInput = true
 		keyText = "Left"
@@ -283,10 +342,10 @@ function optionsSelect(key)
 		keyText = "Right"
 	elseif key == "return" and isOptionInput == false and tabSel == 2 and optSel == 3 then
 		isOptionInput = true
-		keyText = "Hard Drop"
+		keyText = "Soft Drop"
 	elseif key == "return" and isOptionInput == false and tabSel == 2 and optSel == 4 then
 		isOptionInput = true
-		keyText = "Soft Drop"
+		keyText = "Hard Drop"
 	elseif key == "return" and isOptionInput == false and tabSel == 2 and optSel == 5 then
 		isOptionInput = true
 		keyText = "Counter Clockwise"
@@ -299,6 +358,12 @@ function optionsSelect(key)
 	elseif key == "escape" and isOptionInput then
 		isOptionInput = false
 		keyText = ""
+	elseif key == "escape" and isOptionColour then
+		isOptionColour = false
+	end
+
+	if key == "return" and isOptionColour == false and tabSel == 3 then
+		isOptionColour = true
 	end
 end
 
@@ -310,10 +375,10 @@ function optionInputConfig(key)
 		keybinds.right = key
 		isOptionInput = false
 	elseif key ~= "escape" and key ~= "return" and isOptionInput and optSel == 3 then
-		keybinds.up = key
+		keybinds.sDrop = key
 		isOptionInput = false
 	elseif key ~= "escape" and key ~= "return" and isOptionInput and optSel == 4 then
-		keybinds.down = key
+		keybinds.hDrop = key
 		isOptionInput = false
 	elseif key ~= "escape" and key ~= "return" and isOptionInput and optSel == 5 then
 		keybinds.cc = key
@@ -325,6 +390,11 @@ function optionInputConfig(key)
 		keybinds.hold = key
 		isOptionInput = false
 	end
+end
+
+--TODO: Finish colour change dialog functionality
+function colourConfig(key)
+	
 end
 
 function optionsSelFunc(dt)
@@ -369,5 +439,13 @@ function optionsSelFunc(dt)
 	elseif optSelStyle < 1 and tabSel == 3 then
 		optSelStyle = 9
 		optSelY = 25 * 8
+	end
+
+	if colSel > 3 then
+		colSel = 1
+		colSelY = 0
+	elseif colSel < 1 then
+		colSel = 3
+		colSelY = 20 * 2
 	end
 end

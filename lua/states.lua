@@ -43,6 +43,8 @@ function popupStates()
 		settingsUI()
 		optionsHover()
 		optionsTip()
+		optionStates()
+		colourHighlight()
 	elseif isAbout and isLicense == false then
 		about()
 		licenseButton()

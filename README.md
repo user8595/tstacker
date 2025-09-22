@@ -5,7 +5,6 @@ An simple old-school puzzle stacker made in the [LÖVE](https://www.love2d.org) 
 Very incomplete.
 
 ### Controls
-
 - ESC: Pause/unpause game
 - F4: Toggle debug menu
 - F8: Toggle input overlay

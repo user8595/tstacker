@@ -18,10 +18,16 @@ licenseFont = love.graphics.setNewFont("/assets/monogram.ttf", 18)
 boardPosX = 0
 boardPosY = 0
 
+-- game width variable
+gWidth = 640
+-- game height variable
+gHeight = 480
+
 -- window width variable
-wWidth = 640
+wWidth = love.graphics.getWidth()
 -- window height variable
-wHeight = 480
+wHeight = love.graphics.getHeight()
+
 -- text selection background
 textSelect = 1
 menuSelectY = 55
@@ -54,37 +60,37 @@ licenseCol = { 0.5, 0.5, 0.5 }
 
 board = {
 	-- vertical lines
-	l1x =  wWidth / 2 - 84 + boardPosX,
-	l1y = wHeight / 2 - 173 + boardPosY,
-	l2x =  wWidth / 2 - 84 + boardPosX,
-	l2y = wHeight / 2 + 187 + boardPosY,
+	l1x =  gWidth / 2 - 84 + boardPosX,
+	l1y = gHeight / 2 - 173 + boardPosY,
+	l2x =  gWidth / 2 - 84 + boardPosX,
+	l2y = gHeight / 2 + 187 + boardPosY,
 	-- horizontal lines
-	l3x =  wWidth / 2 - 84 + boardPosX,
-	l3y = wHeight / 2 - 173 + boardPosY,
-	l4x =  wWidth / 2 + 96 + boardPosX,
-	l4y = wHeight / 2 - 173 + boardPosY,
+	l3x =  gWidth / 2 - 84 + boardPosX,
+	l3y = gHeight / 2 - 173 + boardPosY,
+	l4x =  gWidth / 2 + 96 + boardPosX,
+	l4y = gHeight / 2 - 173 + boardPosY,
 
 	-- next queue
-	nx =  wWidth / 2 + 120 + boardPosX,
-	ny = wHeight / 2 - 155 + boardPosY,
+	nx =  gWidth / 2 + 120 + boardPosX,
+	ny = gHeight / 2 - 155 + boardPosY,
 	nw = 80,
 	nh = 45 * nextCount,
 
 	-- next queue text frame
-	n1x =  wWidth / 2 + 120 + boardPosX,
-	n1y = wHeight / 2 - 173 + boardPosY,
+	n1x =  gWidth / 2 + 120 + boardPosX,
+	n1y = gHeight / 2 - 173 + boardPosY,
 	n1w = 80,
 	n1h = 20,
 
 	-- hold queue
-	hx =  wWidth / 2 - 188 + boardPosX,
-	hy = wHeight / 2 - 155 + boardPosY,
+	hx =  gWidth / 2 - 188 + boardPosX,
+	hy = gHeight / 2 - 155 + boardPosY,
 	hw = 80,
 	hh = 45,
 
 	-- hold queue text frame
-	h1x =  wWidth / 2 - 188 + boardPosX,
-	h1y = wHeight / 2 - 173 + boardPosY,
+	h1x =  gWidth / 2 - 188 + boardPosX,
+	h1y = gHeight / 2 - 173 + boardPosY,
 	h1w = 80,
 	h1h = 20,
 
@@ -127,17 +133,21 @@ block = {
 	y = board.l1y
 }
 
+-- keybinds
 keybinds = {
+	-- menus
 	up = "up",
 	down = "down",
 	left = "left",
 	right = "right",
+	-- game specific
+	hDrop = "space",
+	sDrop = "down",
 	cc = "z",
 	c = "x",
 	hold = "c",
 	restart = "`",
 
-	-- keybinds
 	-- up = "w",
 	-- down = "s",
 	-- left = "a",
@@ -147,8 +157,8 @@ keybinds = {
 	-- hold = "space",
 
 	-- x-axis base position
-	keyX = wWidth - 102,
-	keyY = wHeight - 30,
+	keyX = gWidth - 102,
+	keyY = gHeight - 30,
 
 	-- stylua: ignore start
 	-- key colour
