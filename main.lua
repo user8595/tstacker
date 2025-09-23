@@ -23,6 +23,7 @@ function love.keypressed(key)
   optionsSelect(key)
   optionInputConfig(key)
   pauseKey(key)
+  fullsc(key)
 end
 
 function love.mousepressed(x, y, button)
@@ -40,6 +41,7 @@ end
 
 function love.draw()
   gameContent()
+
   -- local txt
   -- if isOptionColour then
   --   txt = "true"

@@ -239,6 +239,14 @@ function tSMenu(key)
 	end
 end
 
+function fullsc(key)
+	if key == "f11" and love.window.getFullscreen() == false then
+		love.window.setFullscreen(true)
+	elseif key == "f11" and love.window.getFullscreen() == true then
+		love.window.setFullscreen(false)
+	end
+end
+
 iconIncrement = 1
 
 local xPos = 33
