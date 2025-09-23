@@ -240,11 +240,14 @@ function tSMenu(key)
 end
 
 iconIncrement = 1
+
+local xPos = 33
+local yPos = 412
 function menuClick(x, y, button)
 	-- license screen
-	if x >= 33 and x <= 179 and y >= 412 and y <= 440 and isAbout and isLicense == false and button == 1 then
+	if x >= xPos and x <= xPos + 146 and y >= yPos and y <= yPos + 28 and isAbout and isLicense == false and button == 1 then
 		isLicense = true
-	elseif x >= 33 and x <= 176 and y >= 412 and y <= 440 and isAbout and isLicense == true and button == 1 then
+	elseif x >= xPos and x <= xPos + 143 and y >= yPos and y <= yPos + 28 and isAbout and isLicense == true and button == 1 then
 		isLicense = false
 	end
 

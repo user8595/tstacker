@@ -13,7 +13,7 @@ end
 
 function love.load()
   defaults()
-  gameEffect()
+  titleBlink()
 end
 
 function love.keypressed(key)
@@ -34,9 +34,12 @@ function love.update(dt)
   gameLoop(dt)
 end
 
+function love.resize(w, h)
+  wWidth, wHeight = w, h
+end
+
 function love.draw()
   gameContent()
-
   -- local txt
   -- if isOptionColour then
   --   txt = "true"

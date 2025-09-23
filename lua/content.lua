@@ -1,4 +1,7 @@
 function gameContent()
+	love.graphics.push()
+	love.graphics.translate(wWidth / 2 - gWidth / 2, wHeight / 2 - gHeight / 2)
+	love.graphics.scale(SC, SC)
     if state == "game" then
         grid()
     else
@@ -8,6 +11,7 @@ function gameContent()
     popupStates()
     exitPopup()
     overlayToggle()
+	love.graphics.pop()
 end
 
 function gameLoop(dt)

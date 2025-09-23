@@ -1,18 +1,19 @@
 -- defaults
 function defaults()
-	love.graphics.setDefaultFilter("nearest", "nearest")
 	love.graphics.setBackgroundColor(bgCol)
 end
+
+love.graphics.setDefaultFilter("nearest", "nearest")
 
 -- game version
 gameVer = "incomplete"
 
 -- game fonts
-monogram = love.graphics.setNewFont("/assets/monogram.ttf", 22)
-monogramL = love.graphics.setNewFont("/assets/monogram.ttf", 24)
-largeText = love.graphics.setNewFont("/assets/monogram.ttf", 28)
-smallText = love.graphics.setNewFont("/assets/Picopixel.ttf", 12)
-licenseFont = love.graphics.setNewFont("/assets/monogram.ttf", 18)
+monogram = love.graphics.newFont("/assets/monogram.ttf", 22)
+monogramL = love.graphics.newFont("/assets/monogram.ttf", 24)
+largeText = love.graphics.newFont("/assets/monogram.ttf", 28)
+smallText = love.graphics.newFont("/assets/Picopixel.ttf", 12)
+licenseFont = love.graphics.newFont("/assets/monogram.ttf", 18)
 
 -- overall board position
 boardPosX = 0
@@ -27,6 +28,10 @@ gHeight = 480
 wWidth = love.graphics.getWidth()
 -- window height variable
 wHeight = love.graphics.getHeight()
+
+-- game internal scale
+--TODO: Add proper game scaling (?)
+SC = 1
 
 -- text selection background
 textSelect = 1

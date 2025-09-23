@@ -7,7 +7,7 @@ local pauseY = gHeight / 2 - 50
 
 iconAbout = icoEasterEgg[1]
 
-function gameEffect()
+function titleBlink()
 	function tb()
 		titleText = { 1, 1, 1, 0 }
 	end

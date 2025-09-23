@@ -211,7 +211,7 @@ end
 function colourDialog()
 	love.graphics.setColor(popupOverlay)
 	love.graphics.rectangle("fill", popX, popY, popW, popH)
-	love.graphics.setColor(popupCol)
+	love.graphics.setColor(0, 0, 0)
 	love.graphics.rectangle("fill", popX + 105, popY + 127, 185, 105)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.rectangle("line", popX + 105, popY + 127, 185, 105)
@@ -224,7 +224,7 @@ function colourDialog()
 
 	love.graphics.setColor(colour.border)
 	love.graphics.rectangle("fill", popX + 124, popY + 143, 72, 72)
-	love.graphics.setColor(0.35, 0.35, 0.35)
+	love.graphics.setColor(colour.border)
 	love.graphics.print("Colour", monogramL, popX + 218, popY + 137)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.print({{1,0.5,0.5}, "R: ", {1,1,1}, "255"}, monogramL, popX + 218, popY + 157)
@@ -280,7 +280,7 @@ function colourHighlight()
 	-- colour config highlighter
 	if isOptionColour then
 		love.graphics.setColor(optCol)
-		love.graphics.rectangle("fill", popX + 210, popY + 157 + colSelY, 75, 20)
+		love.graphics.rectangle("fill", popX + 207, popY + 157 + colSelY, 75, 20)
 	else
 	end
 end
