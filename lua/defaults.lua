@@ -199,3 +199,14 @@ isLicense = false
 -- menus
 isAbout = false
 isOptions = false
+
+-- keybinds reset function
+function resetKeybinds()
+	keybinds.left = "left"
+	keybinds.right = "right"
+	keybinds.hDrop = "space"
+	keybinds.sDrop = "down"
+	keybinds.cc = "z"
+	keybinds.c = "x"
+	keybinds.hold = "c"
+end

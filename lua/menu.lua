@@ -131,7 +131,7 @@ function inputMenu(key)
 		state = "title"
 		selectReset()
 		menuReset()
-	elseif key == "escape" and state == "menu" and isOptions and isOptionInput == false and isOptionSelect == false and isOptionColour == false then
+	elseif key == "escape" and state == "menu" and isOptions and isOptionInput == false and isOptionSelect == false and isOptionColour == false and isInputReset == false then
 		isOptions = false
 		tabSel = 1
 		tabSelX = 0
@@ -285,7 +285,7 @@ end
 
 function licenseHover()
 	local x, y = love.mouse.getPosition()
-	local xOff, yOff =  (wWidth - gWidth) / 2, (wHeight - gHeight) / 2
+	local xOff, yOff = (wWidth - gWidth) / 2, (wHeight - gHeight) / 2
 	-- checks for mouse input
 	if x >= 33 + xOff and x <= 179 + xOff and y >= 412 + yOff and y <= 440 + yOff and isAbout and love.mouse.isDown(1) then
 		licenseCol = { 0.35, 0.35, 0.35 }

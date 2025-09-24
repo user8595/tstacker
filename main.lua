@@ -25,7 +25,6 @@ function love.mousepressed(x, y, button)
 end
 
 function love.update(dt)
-  defaults()
   gameLoop(dt)
 end
 
@@ -34,6 +33,7 @@ function love.resize(w, h)
 end
 
 function love.draw()
+  defaults()
   gameContent()
 
   -- local txt

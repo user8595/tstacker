@@ -15,6 +15,8 @@ tabSelX = 0
 isOptionSelect = false
 -- input config option boolean
 isOptionInput = false
+-- input reset confirmation
+isInputReset = false
 -- change colour dialogue
 isOptionColour = false
 
@@ -137,6 +139,8 @@ function controlsUI()
 
 	printLeft("Hold", 7)
 	printRight(keybinds.hold:gsub("^%l", string.upper), 7)
+
+	printLeft("Reset Keybinds", 8)
 end
 
 function styleUI()
@@ -217,6 +221,19 @@ function inputDialog()
 	love.graphics.printf("ESC To cancel", monogram, popX + 40, popY + 310, 320, "center")
 end
 
+function inputResetConfirm()
+	love.graphics.setColor(popupOverlay)
+	love.graphics.rectangle("fill", popX, popY, popW, popH)
+	love.graphics.setColor(0, 0, 0)
+	love.graphics.rectangle("fill", popX + 117, popY + 177, 160, 35)
+	love.graphics.setColor(1, 1, 1)
+	love.graphics.rectangle("line", popX + 117, popY + 177, 160, 35)
+	love.graphics.setColor(uiText)
+	love.graphics.printf("Reset keybinds?", monogramL, popX + 40, popY + 183, 320, "center")
+	love.graphics.setColor(uiText)
+	love.graphics.printf("ESC to cancel", monogram, popX + 40, popY + 218, 320, "center")
+end
+
 function colourDialog()
 	love.graphics.setColor(popupOverlay)
 	love.graphics.rectangle("fill", popX, popY, popW, popH)
@@ -274,6 +291,9 @@ function optionStates()
 	if isOptionInput then
 		textCols = { 0.5, 0.5, 0.5 }
 		inputDialog()
+	elseif isInputReset then
+		textCols = { 0.5, 0.5, 0.5 }
+		inputResetConfirm()
 	elseif isOptionColour then
 		textCols = { 0.5, 0.5, 0.5 }
 		colourDialog()
@@ -311,16 +331,16 @@ end
 
 function optionsSelect(key)
 	-- current tab selection
-	if key == "left" and isOptions and isOptionSelect == false and isOptionInput == false and isOptionColour == false or
-		key == keybinds.left and isOptions and isOptionSelect == false and isOptionInput == false and isOptionColour == false then
+	if key == "left" and isOptions and isOptionSelect == false and isOptionInput == false and isOptionColour == false and isInputReset == false or
+		key == keybinds.left and isOptions and isOptionSelect == false and isOptionInput == false and isOptionColour == false and isInputReset == false then
 		tabSel = tabSel - 1
 		tabSelX = tabSelX - (400 / 3)
 		-- reset highlighted options item position
 		optSel = 1
 		optSelY = 0
 		optSelStyle = 1
-	elseif key == "right" and isOptions and isOptionSelect == false and isOptionInput == false and isOptionColour == false or
-		key == keybinds.right and isOptions and isOptionSelect == false and isOptionInput == false and isOptionColour == false then
+	elseif key == "right" and isOptions and isOptionSelect == false and isOptionInput == false and isOptionColour == false and isInputReset == false or
+		key == keybinds.right and isOptions and isOptionSelect == false and isOptionInput == false and isOptionColour == false and isInputReset == false then
 		tabSel = tabSel + 1
 		tabSelX = tabSelX + (400 / 3)
 		optSelY = 0
@@ -329,16 +349,17 @@ function optionsSelect(key)
 	end
 
 	-- current options entry selected
-	if key == "up" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 and isOptionColour == false and colMod == false or
-		key == keybinds.up and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 and isOptionColour == false and colMod == false then
+	if key == "up" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 and isOptionColour == false and isInputReset == false and colMod == false or
+		key == keybinds.up and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 and isOptionColour == false and isInputReset == false and colMod == false then
 		optSel = optSel - 1
 		optSelY = optSelY - 25
-	elseif key == "down" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 and isOptionColour == false and colMod == false or
-		key == keybinds.down and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 and isOptionColour == false and colMod == false then
+	elseif key == "down" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 and isOptionColour == false and isInputReset == false and colMod == false or
+		key == keybinds.down and isOptions and isOptionSelect == false and isOptionInput == false and tabSel < 3 and isOptionColour == false and isInputReset == false and colMod == false then
 		optSel = optSel + 1
 		optSelY = optSelY + 25
 	end
 
+	-- style page
 	if key == "up" and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 and isOptionColour == false and colMod == false or
 		key == keybinds.up and isOptions and isOptionSelect == false and isOptionInput == false and tabSel == 3 and isOptionColour == false and colMod == false then
 		optSelStyle = optSelStyle - 1
@@ -349,6 +370,7 @@ function optionsSelect(key)
 		optSelY = optSelY + 25
 	end
 
+	-- colour config
 	if key == "up" and isOptionColour and colMod == false or key == keybinds.up and isOptionColour and colMod == false then
 		colSel = colSel - 1
 		colSelY = colSelY - 20
@@ -357,6 +379,7 @@ function optionsSelect(key)
 		colSelY = colSelY + 20
 	end
 
+	-- confirmation functions
 	if key == "return" and isOptionInput == false and tabSel == 2 and optSel == 1 then
 		isOptionInput = true
 		keyText = "Left"
@@ -378,9 +401,12 @@ function optionsSelect(key)
 	elseif key == "return" and isOptionInput == false and tabSel == 2 and optSel == 7 then
 		isOptionInput = true
 		keyText = "Hold"
+		-- popup closing functions
 	elseif key == "escape" and isOptionInput then
 		isOptionInput = false
 		keyText = ""
+	elseif key == "escape" and isInputReset then
+		isInputReset = false
 	elseif key == "escape" and isOptionColour and colMod == false then
 		colSel = 1
 		colSelY = 0
@@ -413,6 +439,13 @@ function optionInputConfig(key)
 	elseif key ~= "escape" and key ~= "return" and isOptionInput and optSel == 7 then
 		keybinds.hold = key
 		isOptionInput = false
+	end
+
+	if key == "return" and isInputReset == false and optSel == 8 and tabSel == 2 then
+		isInputReset = true
+	elseif key == "return" and isInputReset and optSel == 8 and tabSel == 2 then
+		resetKeybinds()
+		isInputReset = false
 	end
 end
 
@@ -553,12 +586,12 @@ function optionsSelFunc(dt)
 		optSel = 1
 		optSelY = 0
 		-- input screen
-	elseif optSel > 7 and tabSel == 2 then
+	elseif optSel > 8 and tabSel == 2 then
 		optSel = 1
 		optSelY = 0
 	elseif optSel < 1 and tabSel == 2 then
-		optSel = 7
-		optSelY = 25 * 6
+		optSel = 8
+		optSelY = 25 * 7
 		-- style screen
 	elseif optSelStyle > 9 and tabSel == 3 then
 		optSelStyle = 1
