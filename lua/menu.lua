@@ -251,17 +251,18 @@ end
 
 iconIncrement = 1
 
-local xPos = 33
-local yPos = 412
+local xPos, yPos = 33, 412
+local xIcon, yIcon = 36, 260
+
 function menuClick(x, y, button)
 	-- license screen
-	if x >= xPos and x <= xPos + 146 and y >= yPos and y <= yPos + 28 and isAbout and isLicense == false and button == 1 then
+	if x >= xPos + (wWidth - gWidth) / 2 and x <= xPos + 146 + (wWidth - gWidth) / 2 and y >= yPos + (wHeight - gHeight) / 2 and y <= yPos + 28 + (wHeight - gHeight) / 2 and isAbout and isLicense == false and button == 1 then
 		isLicense = true
-	elseif x >= xPos and x <= xPos + 143 and y >= yPos and y <= yPos + 28 and isAbout and isLicense == true and button == 1 then
+	elseif x >= xPos + (wWidth - gWidth) / 2 and x <= xPos + 143 + (wWidth - gWidth) / 2 and y >= yPos + (wHeight - gHeight) / 2 and y <= yPos + 28 + (wHeight - gHeight) / 2 and isAbout and isLicense == true and button == 1 then
 		isLicense = false
 	end
 
-	if x >= 36 and x <= 99 and y >= 260 and y <= 325 and isAbout and isLicense == false then
+	if x >= xIcon + (wWidth - gWidth) / 2 and x <= xIcon + 63 + (wWidth - gWidth) / 2 and y >= yIcon + (wHeight - gHeight) / 2 and y <= yIcon + 65 + (wHeight - gHeight) / 2 and isAbout and isLicense == false then
 		iconIncrement = iconIncrement + 1
 	end
 end
@@ -284,11 +285,11 @@ end
 
 function licenseHover()
 	local x, y = love.mouse.getPosition()
-
+	local xOff, yOff =  (wWidth - gWidth) / 2, (wHeight - gHeight) / 2
 	-- checks for mouse input
-	if x >= 33 and x <= 179 and y >= 412 and y <= 440 and isAbout and love.mouse.isDown(1) then
+	if x >= 33 + xOff and x <= 179 + xOff and y >= 412 + yOff and y <= 440 + yOff and isAbout and love.mouse.isDown(1) then
 		licenseCol = { 0.35, 0.35, 0.35 }
-	elseif x >= 33 and x <= 179 and y >= 412 and y <= 440 and isAbout then
+	elseif x >= 33 + xOff and x <= 179 + xOff and y >= 412 + yOff and y <= 440 + yOff and isAbout then
 		licenseCol = { 0.75, 0.75, 0.75 }
 	else
 		licenseCol = { 0.5, 0.5, 0.5 }
