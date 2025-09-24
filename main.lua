@@ -16,15 +16,7 @@ function love.load()
 end
 
 function love.keypressed(key)
-  love.keyboard.setKeyRepeat(true)
-  inputMenu(key)
-  tSMenu(key)
-  menuSelectKey(key)
-  optionsSelect(key)
-  optionInputConfig(key)
-  colourDialogKey(key)
-  pauseKey(key)
-  fullsc(key)
+  keyFunctions(key)
 end
 
 function love.mousepressed(x, y, button)

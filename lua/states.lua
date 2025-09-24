@@ -70,3 +70,15 @@ function modeStates()
 	elseif mode == "practice" and state == "game" then
 	end
 end
+
+function keyFunctions(key)
+	love.keyboard.setKeyRepeat(true)
+	inputMenu(key)
+	tSMenu(key)
+	menuSelectKey(key)
+	optionsSelect(key)
+	optionInputConfig(key)
+	colourDialogKey(key)
+	pauseKey(key)
+	fullsc(key)
+end

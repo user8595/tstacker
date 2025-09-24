@@ -56,5 +56,15 @@ end
 
 function game()
 	isTimer = true
-	love.graphics.draw(bTex, block.x, block.y)
+	-- TODO: Remove placeholder after finishing game logic
+	love.graphics.setColor(1, 0.5, 0.5)
+	love.graphics.draw(bTex, block.x, block.y + 18)
+	for i = 1, 9, 1 do
+		for i = 1, 9, 1 do
+			love.graphics.setColor(1, 0.5, 0.5)
+			love.graphics.draw(bTex, block.x + (18 * 9) - 18 * i, block.y + 18 + (18 * 9) + 18 * i)
+		end
+		love.graphics.setColor(1, 0.5, 0.5)
+		love.graphics.draw(bTex, block.x + 18 * i, block.y + 18 + 18 * i)
+	end
 end
