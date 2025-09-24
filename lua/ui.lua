@@ -11,9 +11,11 @@ function titleBlink()
 	function tb()
 		titleText = { 1, 1, 1, 0 }
 	end
+
 	function tbD()
 		titleText = { 1, 1, 1, 1 }
 	end
+
 	b = cron.every(1, tb)
 	bf = cron.every(2, tbD)
 
@@ -26,19 +28,20 @@ function version()
 	love.graphics.print(gameVer, monogram, 10, gHeight - 27)
 end
 
+local function boardBG()
+	-- board background
+	love.graphics.setColor(colour.bg)
+	love.graphics.rectangle("fill", board.l1x, board.l1y, board.w, board.h)
+end
+
 function title()
+	boardBG()
 	love.graphics.setColor(popupOverlay)
 	love.graphics.rectangle("fill", 0, 0, gWidth, gHeight)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.draw(logo, board.l1x - 125, board.l1y + 40)
 	love.graphics.setColor(uiText)
-	love.graphics.print({ titleText, "Press Enter" }, monogram,  gWidth / 2 - 36, gHeight / 2 + 100)
-end
-
-local function boardBG()
-	-- board background
-	love.graphics.setColor(colour.bg)
-	love.graphics.rectangle("fill", board.l1x, board.l1y, board.w, board.h)
+	love.graphics.print({ titleText, "Press Enter" }, monogram, gWidth / 2 - 36, gHeight / 2 + 100)
 end
 
 function menu()
@@ -64,8 +67,11 @@ end
 
 function menuTip()
 	love.graphics.setColor(0.5, 0.5, 0.5)
-    -- stylua: ignore start
-    love.graphics.printf(keybinds.up:gsub("^%l", string.upper) .. "/" .. keybinds.down:gsub("^%l", string.upper) .. ": Select\nEnter: Confirm", monogram, board.l1x, gHeight - 46, board.w, "center")
+	-- stylua: ignore start
+	love.graphics.printf(
+		keybinds.up:gsub("^%l", string.upper) ..
+		"/" .. keybinds.down:gsub("^%l", string.upper) .. ": Select\nEnter: Confirm",
+		monogram, board.l1x, gHeight - 46, board.w, "center")
 	-- stylua: ignore end
 end
 
@@ -90,7 +96,8 @@ function licenseButton()
 	love.graphics.setColor(licenseCol)
 	love.graphics.print("Licensed under the\nMIT License.", monogram, board.l1x - 200, board.l1y + 340)
 	love.graphics.setColor(0.5, 0.5, 0.5)
-	love.graphics.print("Click text above to " .. showText .. " full license", smallText, board.l1x - 200, board.l1y + 380)
+	love.graphics.print("Click text above to " .. showText .. " full license", smallText, board.l1x - 200,
+		board.l1y + 380)
 end
 
 function license()
@@ -155,7 +162,7 @@ function boardUI()
 	love.graphics.rectangle("line", board.nx, board.ny, board.nw, board.nh)
 
 	-- next queue text frame
-	love.graphics.rectangle("fill", board.n1x - 1, board.n1y, board.n1w + 2, board.n1h)
+	love.graphics.rectangle("fill", board.n1x, board.n1y, board.n1w, board.n1h)
 	love.graphics.setColor(colour.text)
 	love.graphics.print("NEXT", monogram, board.n1x + 7, board.n1y - 1)
 
@@ -167,7 +174,7 @@ function boardUI()
 
 	-- hold queue text frame
 	love.graphics.setColor(colour.queue)
-	love.graphics.rectangle("fill", board.h1x - 1, board.h1y, board.h1w + 2, board.h1h)
+	love.graphics.rectangle("fill", board.h1x, board.h1y, board.h1w, board.h1h)
 	love.graphics.setColor(colour.text)
 	love.graphics.print("HOLD", monogram, board.h1x + 7, board.h1y - 1)
 end

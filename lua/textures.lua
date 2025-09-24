@@ -1,3 +1,6 @@
+-- defalut filter
+love.graphics.setDefaultFilter("nearest", "nearest")
+
 logo = love.graphics.newImage("/assets/textures/logo.png")
 icon = love.graphics.newImage("/assets/textures/icon.png")
 icoEasterEgg = {

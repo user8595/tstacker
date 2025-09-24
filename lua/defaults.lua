@@ -8,8 +8,12 @@ love.graphics.setDefaultFilter("nearest", "nearest")
 -- game version
 gameVer = "incomplete"
 
+-- game internal scale
+--TODO: Add proper game scaling (?)
+SC = 1
+
 -- game fonts
-monogram = love.graphics.newFont("/assets/monogram.ttf", 22)
+monogram = love.graphics.newFont("/assets/monogram.ttf", 22, "none")
 monogramL = love.graphics.newFont("/assets/monogram.ttf", 24)
 largeText = love.graphics.newFont("/assets/monogram.ttf", 28)
 smallText = love.graphics.newFont("/assets/Picopixel.ttf", 12)
@@ -29,9 +33,6 @@ wWidth = love.graphics.getWidth()
 -- window height variable
 wHeight = love.graphics.getHeight()
 
--- game internal scale
---TODO: Add proper game scaling (?)
-SC = 1
 
 -- text selection background
 textSelect = 1
@@ -55,7 +56,7 @@ bgCol = {
 
 -- menu colors
 titleText = { 1, 1, 1, 1 }
-uiText =  { 1, 1, 1 }
+uiText = { 1, 1, 1 }
 buttonCol = { 0.3, 0.3, 0.3, 0.5 }
 popupCol = { 0, 0, 0 }
 popupOverlay = { 0, 0, 0, 0.5 }
@@ -65,36 +66,36 @@ licenseCol = { 0.5, 0.5, 0.5 }
 
 board = {
 	-- vertical lines
-	l1x =  gWidth / 2 - 84 + boardPosX,
+	l1x = gWidth / 2 - 84 + boardPosX,
 	l1y = gHeight / 2 - 173 + boardPosY,
-	l2x =  gWidth / 2 - 84 + boardPosX,
+	l2x = gWidth / 2 - 84 + boardPosX,
 	l2y = gHeight / 2 + 187 + boardPosY,
 	-- horizontal lines
-	l3x =  gWidth / 2 - 84 + boardPosX,
+	l3x = gWidth / 2 - 84 + boardPosX,
 	l3y = gHeight / 2 - 173 + boardPosY,
-	l4x =  gWidth / 2 + 96 + boardPosX,
+	l4x = gWidth / 2 + 96 + boardPosX,
 	l4y = gHeight / 2 - 173 + boardPosY,
 
 	-- next queue
-	nx =  gWidth / 2 + 120 + boardPosX,
+	nx = gWidth / 2 + 120 + boardPosX,
 	ny = gHeight / 2 - 155 + boardPosY,
 	nw = 80,
 	nh = 45 * nextCount,
 
 	-- next queue text frame
-	n1x =  gWidth / 2 + 120 + boardPosX,
+	n1x = gWidth / 2 + 120 + boardPosX,
 	n1y = gHeight / 2 - 173 + boardPosY,
 	n1w = 80,
 	n1h = 20,
 
 	-- hold queue
-	hx =  gWidth / 2 - 188 + boardPosX,
+	hx = gWidth / 2 - 188 + boardPosX,
 	hy = gHeight / 2 - 155 + boardPosY,
 	hw = 80,
 	hh = 45,
 
 	-- hold queue text frame
-	h1x =  gWidth / 2 - 188 + boardPosX,
+	h1x = gWidth / 2 - 188 + boardPosX,
 	h1y = gHeight / 2 - 173 + boardPosY,
 	h1w = 80,
 	h1h = 20,
@@ -108,7 +109,7 @@ board = {
 -- stylua: ignore start
 colour = {
 	bg = {
-		0.04, 0.04,	0.04,
+		0.04, 0.04, 0.04,
 	},
 
 	grid = {
@@ -186,7 +187,7 @@ levelTarget = 10 * stats.level
 -- game state
 state = "title" -- values: "title", "menu", "mode", "game"
 -- game ui display modes
-mode = "none" -- values: "none", "40", "marathon", "ultra", "practice"
+mode = "none"   -- values: "none", "40", "marathon", "ultra", "practice"
 
 -- booleans
 isTimer = false

@@ -89,9 +89,9 @@ local boxY = 90
 function exitPopup(dt)
 	if exitInput == 1 then
 		love.graphics.setColor(exitColor)
-		love.graphics.rectangle("fill",  gWidth / 2 - 84, gHeight - boxY, 180, 30)
+		love.graphics.rectangle("fill", gWidth / 2 - 84, gHeight - boxY, 180, 30)
 		love.graphics.setColor(exitText)
-		love.graphics.printf("Press ESC to quit", monogramL,  gWidth / 2 - 84, gHeight - boxY + 5, 180, "center")
+		love.graphics.printf("Press ESC to quit", monogramL, gWidth / 2 - 84, gHeight - boxY + 5, 180, "center")
 	elseif exitInput == 2 then
 		love.event.quit(0)
 	else
@@ -211,9 +211,11 @@ function menuEffect(dt)
 		if bt > 0 and bt <= 1 then
 			buttonCol[4] = buttonCol[4] - dt / 5.5
 			optCol[4] = optCol[4] - dt / 5.5
+			colHl[4] = colHl[4] - dt / 5.5
 		elseif bt >= 1 and bt < 2 then
 			buttonCol[4] = buttonCol[4] + dt / 5.5
 			optCol[4] = optCol[4] + dt / 5.5
+			colHl[4] = colHl[4] + dt / 5.5
 		elseif bt >= 2 then
 			bt = 0
 		end
@@ -285,11 +287,11 @@ function licenseHover()
 
 	-- checks for mouse input
 	if x >= 33 and x <= 179 and y >= 412 and y <= 440 and isAbout and love.mouse.isDown(1) then
-		licenseCol = {0.35, 0.35, 0.35}
+		licenseCol = { 0.35, 0.35, 0.35 }
 	elseif x >= 33 and x <= 179 and y >= 412 and y <= 440 and isAbout then
-		licenseCol = {0.75, 0.75, 0.75}
+		licenseCol = { 0.75, 0.75, 0.75 }
 	else
-		licenseCol = {0.5, 0.5, 0.5}
+		licenseCol = { 0.5, 0.5, 0.5 }
 	end
 end
 

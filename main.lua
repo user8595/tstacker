@@ -12,16 +12,17 @@ if arg[2] == "debug" then
 end
 
 function love.load()
-  defaults()
   titleBlink()
 end
 
 function love.keypressed(key)
+  love.keyboard.setKeyRepeat(true)
   inputMenu(key)
   tSMenu(key)
   menuSelectKey(key)
   optionsSelect(key)
   optionInputConfig(key)
+  colourDialogKey(key)
   pauseKey(key)
   fullsc(key)
 end
@@ -32,6 +33,7 @@ function love.mousepressed(x, y, button)
 end
 
 function love.update(dt)
+  defaults()
   gameLoop(dt)
 end
 

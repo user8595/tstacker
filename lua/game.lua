@@ -40,7 +40,7 @@ function pauseKey(key)
 		isPaused = false
 		textSelect = 1
 	end
-	
+
 	-- pause screen functionality
 	if key == "return" and isPaused and textSelect == 1 then
 		isPaused = false

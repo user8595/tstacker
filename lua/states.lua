@@ -55,7 +55,7 @@ function popupStates()
 		-- reset easter egg orientation
 		iconIncrement = 1
 	end
-	
+
 	if isPaused then
 		pauseSelect()
 		pauseScreen()

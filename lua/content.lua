@@ -1,16 +1,16 @@
 function gameContent()
 	love.graphics.push()
-	love.graphics.translate(wWidth / 2 - gWidth / 2, wHeight / 2 - gHeight / 2)
+	love.graphics.translate((wWidth - gWidth) / 2, (wHeight - gHeight) / 2)
 	love.graphics.scale(SC, SC)
-    if state == "game" then
-        grid()
-    else
-    end
-    boardUI()
-    states()
-    popupStates()
-    exitPopup()
-    overlayToggle()
+	if state == "game" then
+		grid()
+	else
+	end
+	boardUI()
+	states()
+	popupStates()
+	exitPopup()
+	overlayToggle()
 	love.graphics.pop()
 end
 
@@ -23,14 +23,15 @@ function gameLoop(dt)
 		menuTextEffect(dt)
 		selectFunc()
 	end
-    
+
 	if isAbout then
 		licenseHover()
 		iconEgg()
 	end
-    
+
 	if isOptions then
 		optionsSelFunc(dt)
+		colourConfig()
 	end
 
 	if isPaused == false then
