@@ -12,3 +12,7 @@ Very incomplete.
 ### License
 
 Licensed under the [MIT License](./LICENSE.md).
+
+# NOTE
+
+Might reconsider rewriting this, so for now this will be archived.
